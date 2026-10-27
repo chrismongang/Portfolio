@@ -1,0 +1,61 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Satoshi", Helvetica, Arial, sans-serif;
+  --color-ink: #111111;
+  --color-muted: #8a8a8a;
+  --color-button: #f2f2f2;
+  --color-placeholder: #e8e8e8;
+  --color-rail: #f6f6f6;
+  --page-gutter: clamp(10.5rem, 11vw, 12rem);
+}
+
+html,
+body,
+#root {
+  min-height: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+body {
+  margin: 0;
+  background: #fff;
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+button,
+a {
+  font-family: inherit;
+}
+
+.logo-track {
+  animation: logo-marquee 36s linear infinite;
+}
+
+@keyframes logo-marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .logo-track {
+    animation: none;
+  }
+}
+
+mux-player {
+  display: block;
+  width: 100%;
+  height: 100%;
+  --controls: none;
+  --dialog: none;
+  --loading-indicator: none;
+  --media-object-fit: cover;
+}
