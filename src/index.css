@@ -32,22 +32,7 @@ a {
 }
 
 .logo-track {
-  animation: logo-marquee 36s linear infinite;
-}
-
-@keyframes logo-marquee {
-  from {
-    transform: translateX(0);
-  }
-  to {
-    transform: translateX(-50%);
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .logo-track {
-    animation: none;
-  }
+  will-change: transform;
 }
 
 mux-player {
