@@ -1,28 +1,38 @@
+import type { ReactNode } from "react";
 import { Link, Navigate, useParams } from "react-router-dom";
 import { YouTubeEmbed } from "../components/YouTubeEmbed";
 import { projects } from "../data/projects";
 
 const unicornBakeryName = "Unicorn Bakery";
 const unicornBakeryUrl = "https://unicornbakery.de/de";
-
 function paragraphWithLinks(paragraph: string) {
-  const parts = paragraph.split(unicornBakeryName);
+  const inlineLink = /\[([^\]]+)\]\((https?:\/\/[^)\s]+)\)/g;
+  const withBakery = paragraph.replaceAll(
+    unicornBakeryName,
+    `[${unicornBakeryName}](${unicornBakeryUrl})`,
+  );
+  const nodes: ReactNode[] = [];
+  let lastIndex = 0;
 
-  return parts.map((part, index) => (
-    <span key={index}>
-      {index > 0 ? (
-        <a
-          href={unicornBakeryUrl}
-          target="_blank"
-          rel="noreferrer"
-          className="underline underline-offset-[3px]"
-        >
-          {unicornBakeryName}
-        </a>
-      ) : null}
-      {part}
-    </span>
-  ));
+  for (const match of withBakery.matchAll(inlineLink)) {
+    const index = match.index ?? 0;
+    if (index > lastIndex) nodes.push(withBakery.slice(lastIndex, index));
+    nodes.push(
+      <a
+        key={`${match[2]}-${index}`}
+        href={match[2]}
+        target="_blank"
+        rel="noreferrer"
+        className="underline underline-offset-[3px]"
+      >
+        {match[1]}
+      </a>,
+    );
+    lastIndex = index + match[0].length;
+  }
+
+  if (lastIndex < withBakery.length) nodes.push(withBakery.slice(lastIndex));
+  return nodes;
 }
 
 export function CaseStudy() {

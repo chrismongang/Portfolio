@@ -68,16 +68,24 @@ export const projects: Project[] = [
     },
   },
   {
-    id: "aniva",
-    company: "Aniva",
-    playbackId: "ywzNselDJsRZQVLAEzizSUipX6wTysDlM008j00MP4IHU",
+    id: "starlife",
+    company: "Starlife",
+    playbackId: "H9vNKjUDo00rT02CAL5bRUdX3TCb00IhYNVV8VBBeti01fc",
     people: [
-      { name: "Jan Hecker", linkedin: "https://www.linkedin.com/in/janhecker" },
       {
-        name: "Noah Petermann",
-        linkedin: "https://www.linkedin.com/in/noahpetermann",
+        name: "Leander Maerkisch",
+        linkedin: "https://www.linkedin.com/in/leandermaerkisch/",
       },
     ],
+    caseStudy: {
+      slug: "starlife",
+      youtubeId: "4S3bJNSl5kY",
+      location: "New York",
+      paragraphs: [
+        "Das war die erste Doku dieser Art, die ich gemacht habe. Im April 2026 bin ich nach New York geflogen, eigentlich für einen Urlaub. Vor Ort kam die Idee, ein Startup zu finden und daraus einen Film zu machen. [Fabian Tausch](https://www.linkedin.com/in/fabian-tausch/) kannte Gründer in der Stadt und hat mich an [Mike Mahlkow](https://www.linkedin.com/in/mikemahlkow/) weitergeleitet. Wir haben uns getroffen, und Mike hat noch am selben Tag ein paar Founder angerufen. Der Erste, der geantwortet hat, war [Leander Maerkisch](https://www.linkedin.com/in/leandermaerkisch/), Gründer von Starlife. Mike ist dort auch investiert.",
+        "Am nächsten Tag haben wir angefangen. Ich habe Leander in New York begleitet: im Office, in den Kliniken, in denen die Roboter im Einsatz sind, und in Gesprächen mit Investoren, unter anderem mit Mike. Zwischendurch waren wir in Pittsburgh, wo Starlife ein Event hatte. Daraus ist die Geschichte geworden. Starlife baut menschliche Roboter, damit körperliche Arbeit aus der Ferne möglich wird.",
+      ],
+    },
   },
   {
     id: "protocol-health",
