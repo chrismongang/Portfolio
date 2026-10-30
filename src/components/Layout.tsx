@@ -1,5 +1,6 @@
 import { Link, Outlet } from "react-router-dom";
 import { copy, linkedinUrl } from "../copy";
+import { ScrollManager } from "./ScrollManager";
 
 export function Layout() {
   return (
@@ -20,6 +21,7 @@ export function Layout() {
           </Link>
         </header>
 
+        <ScrollManager />
         <main className="flex min-w-0 flex-1 flex-col overflow-x-hidden">
           <Outlet />
         </main>

@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { LoopVideo } from "../components/LoopVideo";
+import { rememberPortfolioScroll } from "../components/ScrollManager";
 import { copy } from "../copy";
 import { projects, type Project } from "../data/projects";
 
@@ -38,6 +39,7 @@ export function Work() {
                 {project.caseStudy ? (
                   <Link
                     to={`/work/${project.caseStudy.slug}`}
+                    onClick={rememberPortfolioScroll}
                     className="absolute inset-0 z-10 flex items-center justify-center bg-black/20 text-white opacity-0 backdrop-blur-lg transition-opacity duration-200 hover:opacity-100 focus-visible:opacity-100"
                   >
                     <span className="inline-flex items-start text-[32px] font-medium leading-none tracking-[-0.03em] md:text-[40px]">

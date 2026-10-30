@@ -10,6 +10,10 @@
   --page-gutter: clamp(10.5rem, 11vw, 12rem);
 }
 
+html {
+  overflow-anchor: none;
+}
+
 html,
 body,
 #root {
