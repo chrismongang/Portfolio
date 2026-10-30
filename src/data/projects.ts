@@ -3,11 +3,19 @@ export type Person = {
   linkedin: string;
 };
 
+export type CaseStudy = {
+  slug: string;
+  youtubeId: string;
+  location?: string;
+  paragraphs: string[];
+};
+
 export type Project = {
   id: string;
   company: string;
   people: Person[];
   playbackId: string;
+  caseStudy?: CaseStudy;
 };
 
 export const projects: Project[] = [
@@ -29,6 +37,15 @@ export const projects: Project[] = [
         linkedin: "https://www.linkedin.com/in/andrechrist",
       },
     ],
+    caseStudy: {
+      slug: "bonn-open",
+      youtubeId: "Gn5wdPP4sfo",
+      location: "Bonn",
+      paragraphs: [
+        "André Christ hat LeanIX an SAP verkauft und ist danach nicht in die Auszeit gegangen, sondern in die Bonn Open. Der Film fragt, was ihn dazu bringt, direkt das nächste große Projekt zu machen.",
+        "Ich habe ihn dort begleitet, für das Format „Day with“ von Unicorn Bakery. Interviews mit Dominic Thiem, Mona Neubaur und Romy Kölzer erzählen die Zeit nach der Karriere, und was Unternehmertum und Leistungssport gemeinsam haben. Es geht darum, wie es wirklich aussieht, ein Turnier dieser Größe zu organisieren.",
+      ],
+    },
   },
   {
     id: "tech-europe",
@@ -40,6 +57,15 @@ export const projects: Project[] = [
         linkedin: "https://www.linkedin.com/in/bela-wiertz",
       },
     ],
+    caseStudy: {
+      slug: "tech-europe",
+      youtubeId: "Rl6PRkdeKC0",
+      location: "Berlin",
+      paragraphs: [
+        "Bela und das Team wollten die Konferenz bauen, die dem Ökosystem gefehlt hat: ein Ort für die Leute, die KI in die Anwendung bringen. Technisch, mit denen, die am aktuellen Stand arbeiten. Sie haben bei null angefangen. Wer spricht, wer Partner wird, welches Publikum zusammengehört. Dazu Venue, Marketing und Gespräche mit Partnern.",
+        "Ich habe Bela und das Team vor und während der Konferenz begleitet. Der Film setzt 24 Stunden vor dem Öffnen der Türen ein und zeigt, wie es wirklich aussieht, ein Event dieser Größe zu organisieren.",
+      ],
+    },
   },
   {
     id: "aniva",
@@ -63,6 +89,15 @@ export const projects: Project[] = [
         linkedin: "https://www.linkedin.com/in/franz-purucker",
       },
     ],
+    caseStudy: {
+      slug: "franz-purucker",
+      youtubeId: "yGdKoWTleFg",
+      location: "New York",
+      paragraphs: [
+        "Ich habe Franz eng begleitet, während er in New York für Research war. Über die Tage habe ich ihm viele Fragen gestellt und daraus die Storyline gebaut, dazu Interviews mit Investoren und Bekannten von ihm. Es ging darum, diese Zeit mitzugehen und so viele authentische Momente wie möglich festzuhalten. Das ist gelungen, im Material und in den Gesprächen.",
+        "Sein Startup ist noch im Stealth. Er baut ein Werkzeug, das Menschen helfen soll, ihre Gewohnheiten zu verändern und ein gesünderes Leben zu führen. Diese Geschichte erzählt die Mini-Doku.",
+      ],
+    },
   },
   {
     id: "cortea",
@@ -78,6 +113,14 @@ export const projects: Project[] = [
         linkedin: "https://www.linkedin.com/in/philipp-hoevelmann",
       },
     ],
+    caseStudy: {
+      slug: "cortea",
+      youtubeId: "qiBnmScpjHY",
+      paragraphs: [
+        "Valentin Neumann und Philipp Hövelmann bauen Cortea. Der Film bleibt bei den beiden Gründern.",
+        "Ich habe sie begleitet, für das Format „Day with“ von Unicorn Bakery. Ein Blick hinter die Kulissen: wie dieses AI-Startup tatsächlich entsteht.",
+      ],
+    },
   },
   {
     id: "tokura",

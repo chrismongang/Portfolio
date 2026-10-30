@@ -1,6 +1,20 @@
+import { Link } from "react-router-dom";
 import { LoopVideo } from "../components/LoopVideo";
 import { copy } from "../copy";
-import { projects } from "../data/projects";
+import { projects, type Project } from "../data/projects";
+
+function portfolioRank(project: Project) {
+  if (project.caseStudy?.slug === "franz-purucker") return 0;
+  if (project.caseStudy?.slug === "bonn-open") return 1;
+  if (project.caseStudy) return 2;
+  return 3;
+}
+
+const orderedProjects = [...projects].sort((a, b) => {
+  const difference = portfolioRank(a) - portfolioRank(b);
+  if (difference !== 0) return difference;
+  return projects.indexOf(a) - projects.indexOf(b);
+});
 
 export function Work() {
   return (
@@ -13,13 +27,39 @@ export function Work() {
       </div>
 
       <ul className="grid grid-cols-1 gap-x-6 gap-y-10 md:grid-cols-2">
-        {projects.map((project) => (
+        {orderedProjects.map((project) => (
           <li key={project.id}>
             <article>
-              <LoopVideo
-                playbackId={project.playbackId}
-                title={`${project.people.map((person) => person.name).join(" & ")} · ${project.company}`}
-              />
+              <div className="relative">
+                <LoopVideo
+                  playbackId={project.playbackId}
+                  title={`${project.people.map((person) => person.name).join(" & ")} · ${project.company}`}
+                />
+                {project.caseStudy ? (
+                  <Link
+                    to={`/work/${project.caseStudy.slug}`}
+                    className="absolute inset-0 z-10 flex items-center justify-center bg-black/20 text-white opacity-0 backdrop-blur-lg transition-opacity duration-200 hover:opacity-100 focus-visible:opacity-100"
+                  >
+                    <span className="inline-flex items-start text-[32px] font-medium leading-none tracking-[-0.03em] md:text-[40px]">
+                      Case Study
+                      <svg
+                        viewBox="0 0 24 24"
+                        className="ml-2 mt-1 h-[0.62em] w-[0.62em]"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="1.75"
+                        aria-hidden="true"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          d="M7 17 17 7M9 7h8v8"
+                        />
+                      </svg>
+                    </span>
+                  </Link>
+                ) : null}
+              </div>
               <h2 className="mt-3 text-[16px] font-medium tracking-[-0.01em]">
                 {project.people.map((person, index) => (
                   <span key={person.linkedin}>
