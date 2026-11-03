@@ -37,7 +37,7 @@ export function YouTubeEmbed({ videoId, title, poster }: YouTubeEmbedProps) {
           type="button"
           className="group relative block h-full w-full"
           onClick={() => setPlaying(true)}
-          aria-label={`${title} abspielen`}
+          aria-label={`Play ${title}`}
         >
           <img src={poster} alt="" className="h-full w-full object-cover" />
           <span className="absolute inset-0 flex items-center justify-center">

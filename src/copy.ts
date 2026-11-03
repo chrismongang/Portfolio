@@ -1,15 +1,104 @@
 export const copy = {
-  headlineLead: "Jede Gründungsgeschichte verdient es,",
-  headlineTail: "erzählt zu werden",
+  headline: "Documenting the people building tomorrow.",
   subline:
-    "Dokumentarische Videos für Gründerinnen und Gründer - der authentische Teil, den die meisten nie zu sehen bekommen.",
-  seeWork: "Portfolio",
-  bookCall: "Gespräch buchen",
-  workedWith: "Zusammengearbeitet mit",
-  workTitle: "Portfolio",
-  workSubline: "Dokumentationen und Gründungsgeschichten",
-  contactTitle: "Gespräch buchen",
+    "I spend days with founders and their teams and turn the messy, unpolished, world-changing part into short documentaries for talent, investors and your community.",
+  seeWork: "Work",
+  bookCall: "Book a call",
+  workedWith: "Founders I've filmed with",
+  workTitle: "Work",
+  workSubline: "Documentaries and founder stories",
+  contactTitle: "Book a call",
   linkedin: "LinkedIn",
+} as const;
+
+export const home = {
+  forWhomTitle: "For founders who are too busy building to capture it.",
+  forWhom: [
+    {
+      label: "Raising",
+      text: "Investors see the team in action, not a deck.",
+    },
+    {
+      label: "Hiring",
+      text: "Candidates meet your culture before the first call.",
+    },
+    {
+      label: "Launching",
+      text: "Show the build behind the product.",
+    },
+  ],
+  selectedWorkTitle: "Selected work",
+  selectedWork: [
+    {
+      slug: "starlife",
+      title: "Starlife",
+      text: "Humanoid robots, 5 days in New York",
+    },
+    {
+      slug: "cortea",
+      title: "Cortea",
+      text: "How an AI startup actually gets built",
+    },
+    {
+      slug: "bonn-open",
+      title: "Bonn Open",
+      text: "He sold LeanIX – then built a tennis tournament",
+    },
+  ],
+  quote: "Holy sh*t. And that's only the teaser?",
+  quoteAuthor: "Leander Maerkisch, Starlife",
+  seeAllWork: "See all work",
+  howTitle: "How it works",
+  steps: [
+    {
+      title: "Pilot",
+      text: "1 - 2 days with you and your team. One short documentary and clips, delivered within two weeks.",
+    },
+    {
+      title: "Partnership",
+      text: "A few shoot days every month. Your story, captured as it happens -> episodes, clips and an archive that grows.",
+    },
+    {
+      title: "Flagship film",
+      text: "When the story is ready, a longer film from everything we've captured. Length follows the story.",
+    },
+  ],
+  about: [
+    "In April 2026, I flew to New York for a vacation. Two days later, I was filming in the workshop of Starlife, a humanoid robotics startup.",
+    "Before that, I built businesses myself - a D2C-brand and a street-football event & media brand. I know how much of building never makes it to the outside.",
+  ],
+  location: "Berlin · New York",
+  faqTitle: "Questions",
+  faq: [
+    {
+      question: "How much of our time does it take?",
+      answer:
+        "Almost none. I shadow your day – one interview of about an hour at most.",
+    },
+    {
+      question: "What about confidential tech?",
+      answer: "NDA by default. Nothing goes public without your approval.",
+    },
+    {
+      question: "Who owns the footage?",
+      answer:
+        "You can use everything on all your channels. I only show work you've approved.",
+    },
+    {
+      question: "Where do you work?",
+      answer: "Based in Berlin. Working across DACH and New York.",
+    },
+  ],
+  closing: "Raising, launching or hiring? Let's talk.",
+} as const;
+
+export const caseStudyCopy = {
+  back: "Work",
+  company: "The company",
+  moment: "The moment",
+  whatWeDid: "What we did",
+  delivered: "Delivered",
+  cta: "Want this for your team?",
 } as const;
 
 export const linkedinUrl = "https://www.linkedin.com/in/chris-mongang";

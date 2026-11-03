@@ -27,7 +27,7 @@ export function Contact() {
           config={{
             layout: "month_view",
             useSlotsViewOnSmallScreen: "true",
-            lang: "de",
+            lang: "en",
           }}
         />
       </div>
