@@ -2,6 +2,7 @@ import type { ReactNode } from "react";
 import { Link, Navigate, useParams } from "react-router-dom";
 import { MuxEmbed } from "../components/MuxEmbed";
 import { YouTubeEmbed } from "../components/YouTubeEmbed";
+import { caseStudyCopy, copy } from "../copy";
 import { projects } from "../data/projects";
 
 const unicornBakeryName = "Unicorn Bakery";
@@ -44,14 +45,23 @@ export function CaseStudy() {
     return <Navigate to="/work" replace />;
   }
 
+  const caseStudy = project.caseStudy;
   const poster = `https://image.mux.com/${project.playbackId}/thumbnail.webp?time=1`;
   const title = `${project.people.map((person) => person.name).join(" & ")} · ${project.company}`;
+  const rows = [
+    { label: caseStudyCopy.company, text: caseStudy.company },
+    { label: caseStudyCopy.moment, text: caseStudy.moment },
+    { label: caseStudyCopy.whatWeDid, text: caseStudy.whatWeDid },
+    ...(caseStudy.delivered
+      ? [{ label: caseStudyCopy.delivered, text: caseStudy.delivered }]
+      : []),
+  ];
 
   return (
     <div className="mx-auto w-full max-w-5xl flex-1 px-6 pb-16 pt-6 md:px-12">
       <div className="text-center">
         <Link to="/work" className="text-[14px] text-muted hover:text-ink">
-          ← Portfolio
+          ← {caseStudyCopy.back}
         </Link>
         <h1 className="mt-8 text-[32px] font-medium tracking-[-0.03em] md:text-[40px]">
           {project.company}
@@ -71,7 +81,7 @@ export function CaseStudy() {
             </span>
           ))}
         </p>
-        {project.caseStudy.location ? (
+        {caseStudy.location ? (
           <p className="mt-4 flex items-center justify-center gap-1.5 text-[14px] text-muted">
             <svg
               viewBox="0 0 24 24"
@@ -88,35 +98,67 @@ export function CaseStudy() {
               />
               <circle cx="12" cy="10" r="2.25" />
             </svg>
-            {project.caseStudy.location}
+            {caseStudy.location}
           </p>
         ) : null}
       </div>
 
-      <div className="mt-10 space-y-5 text-[16px] leading-relaxed md:text-[18px]">
-        {project.caseStudy.paragraphs.map((paragraph) => (
-          <p key={paragraph}>{paragraphWithLinks(paragraph)}</p>
-        ))}
-      </div>
-
-      {project.caseStudy.youtubeId ? (
+      {caseStudy.muxPlaybackId ? (
+        <div className="mt-10">
+          <MuxEmbed
+            playbackId={caseStudy.muxPlaybackId}
+            title={title}
+            poster={`https://image.mux.com/${caseStudy.muxPlaybackId}/thumbnail.webp?time=1`}
+          />
+        </div>
+      ) : caseStudy.youtubeId ? (
         <div className="mt-10">
           <YouTubeEmbed
-            videoId={project.caseStudy.youtubeId}
+            videoId={caseStudy.youtubeId}
             title={title}
             poster={poster}
           />
         </div>
       ) : null}
-      {project.caseStudy.muxPlaybackId ? (
-        <div className="mt-10">
-          <MuxEmbed
-            playbackId={project.caseStudy.muxPlaybackId}
-            title={title}
-            poster={`https://image.mux.com/${project.caseStudy.muxPlaybackId}/thumbnail.webp?time=1`}
-          />
-        </div>
+
+      <dl className="mx-auto mt-14 max-w-3xl divide-y divide-rail border-y border-rail">
+        {rows.map((row) => (
+          <div
+            key={row.label}
+            className="grid grid-cols-1 gap-2 py-6 sm:grid-cols-[10rem_1fr] sm:gap-8"
+          >
+            <dt className="pt-1 text-[12px] font-medium uppercase tracking-[0.08em] text-muted">
+              {row.label}
+            </dt>
+            <dd className="text-pretty text-[16px] leading-relaxed md:text-[17px]">
+              {paragraphWithLinks(row.text)}
+            </dd>
+          </div>
+        ))}
+      </dl>
+
+      {caseStudy.quote ? (
+        <figure className="mx-auto mt-16 max-w-3xl text-center">
+          <blockquote className="text-balance text-[22px] font-medium leading-[1.25] tracking-[-0.03em] md:text-[28px]">
+            “{caseStudy.quote.text}”
+          </blockquote>
+          <figcaption className="mt-3 text-[14px] text-muted">
+            — {caseStudy.quote.author}
+          </figcaption>
+        </figure>
       ) : null}
+
+      <div className="mt-20 flex flex-col items-center text-center">
+        <p className="text-[22px] font-medium tracking-[-0.03em] md:text-[28px]">
+          {caseStudyCopy.cta}
+        </p>
+        <Link
+          to="/contact"
+          className="mt-8 rounded-xl bg-gradient-to-r from-[#c9f4e6] to-[#b7e4f6] px-5 py-2.5 text-[15px] font-medium text-ink hover:from-[#bdecd9] hover:to-[#a6dcf0]"
+        >
+          {copy.bookCall}
+        </Link>
+      </div>
     </div>
   );
 }

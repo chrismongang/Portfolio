@@ -31,9 +31,10 @@ const caseStudyPages: PageMeta[] = projects.flatMap((project) => {
 
   return {
     path: `/work/${caseStudy.slug}`,
-    title: `${project.company} – Dokumentation mit ${names}${place} · ${siteName}`,
+    title: `${project.company} – Documentary with ${names}${place} · ${siteName}`,
     description:
-      caseStudy.description ?? shorten(plainText(caseStudy.paragraphs[0])),
+      caseStudy.description ??
+      shorten(plainText(`${caseStudy.company} ${caseStudy.whatWeDid}`)),
     image:
       caseStudy.ogImage ??
       `https://image.mux.com/${project.playbackId}/thumbnail.jpg?time=1&width=1200&height=630&fit_mode=smartcrop`,
@@ -43,18 +44,18 @@ const caseStudyPages: PageMeta[] = projects.flatMap((project) => {
 export const pages: PageMeta[] = [
   {
     path: "/",
-    title: `${siteName} · Dokumentarische Videos für Gründerinnen und Gründer`,
+    title: `${siteName} · Founder Documentaries`,
     description: copy.subline,
   },
   {
     path: "/work",
     title: `${copy.workTitle} · ${siteName}`,
-    description: `${copy.workSubline} von ${siteName}.`,
+    description: `${copy.workSubline} by ${siteName}.`,
   },
   {
     path: "/contact",
     title: `${copy.contactTitle} · ${siteName}`,
-    description: `15 Minuten mit ${siteName} über deine Gründungsgeschichte.`,
+    description: `15 minutes with ${siteName} about your founder story.`,
   },
   ...caseStudyPages,
 ];
@@ -82,7 +83,7 @@ export function headTags(page: PageMeta) {
     `<meta name="description" content="${escape(page.description)}" />`,
     `<link rel="canonical" href="${url}" />`,
     `<meta property="og:type" content="website" />`,
-    `<meta property="og:locale" content="de_DE" />`,
+    `<meta property="og:locale" content="en_US" />`,
     `<meta property="og:site_name" content="${siteName}" />`,
     `<meta property="og:url" content="${url}" />`,
     `<meta property="og:title" content="${escape(page.title)}" />`,

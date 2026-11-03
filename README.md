@@ -4,7 +4,7 @@ Persönliche Website für dokumentarische Videos mit Gründerinnen und Gründern
 
 Live-Seiten:
 
-- `/` — Headline, CTAs, Logo-Slider
+- `/` — Landingpage: Headline, Showreel, Logos, Angebot, Über mich, FAQ
 - `/work` — Portfolio-Raster mit Mux-Loops
 - `/contact` — 15-Minuten-Gespräch über Cal.com
 

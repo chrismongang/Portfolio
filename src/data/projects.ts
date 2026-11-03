@@ -12,7 +12,14 @@ export type CaseStudy = {
   youtubeId?: string;
   muxPlaybackId?: string;
   location?: string;
-  paragraphs: string[];
+  /** What the company does. Text may contain [links](https://…). */
+  company: string;
+  /** Why this was the right time to film. */
+  moment: string;
+  whatWeDid: string;
+  /** Only for films that have actually been handed over. */
+  delivered?: string;
+  quote?: { text: string; author: string };
 };
 
 export type Project = {
@@ -41,9 +48,13 @@ export const projects: Project[] = [
     caseStudy: {
       slug: "tech-europe-hackathon",
       muxPlaybackId: "NxtM1yBrfoc01x7n4NdaL00VSZ9i2dnBEGjko4ZU2K2bo",
-      paragraphs: [
-        "Ich habe Vitor und Elia beim Tech Europe Hackathon begleitet, um ihre Story hautnah zu erzählen. Der Film zeigt, was sie bauen und wie sie damit die Judges überzeugen.",
-      ],
+      company:
+        "Vitor and Elia built [SCP](https://scp.dev/) at the Tech Europe Hackathon – a message layer that lets coding agents across tools like Claude Code and Codex talk to each other.",
+      moment:
+        "One hackathon: an idea, a few hours to build it and a pitch in front of the judges. Whether they won is revealed in the documentary.",
+      whatWeDid:
+        "I followed Vitor and Elia through the hackathon, from the first idea to the final pitch, to tell their story up close.",
+      delivered: "Teaser – the full documentary is in post-production",
     },
   },
   {
@@ -59,9 +70,14 @@ export const projects: Project[] = [
     caseStudy: {
       slug: "macher-festival",
       youtubeId: "iFKOEHKQZao",
-      paragraphs: [
-        "Ich habe Daniel Michailidis, den Geschäftsführer des Macher Festivals, für das Format „Day with“ von Unicorn Bakery begleitet. Der Film zeigt, wie es hinter den Kulissen des Festivals wirklich aussieht.",
-      ],
+      location: "Ferropolis",
+      company:
+        "[Macher Festival](https://www.macherfestival.io/), a hands-on festival where thousands of young people build vehicles, learn crafts and try out ideas – led by managing director Daniel Michailidis.",
+      moment:
+        "Festival days – when months of planning have to work in real time.",
+      whatWeDid:
+        "I followed Daniel for Unicorn Bakery’s “Day with” format: what it really takes behind the scenes to run the festival.",
+      delivered: "“Day with” episode for Unicorn Bakery",
     },
   },
   {
@@ -101,10 +117,13 @@ export const projects: Project[] = [
       slug: "bonn-open",
       youtubeId: "Gn5wdPP4sfo",
       location: "Bonn",
-      paragraphs: [
-        "André Christ hat LeanIX an SAP verkauft und ist danach nicht in die Auszeit gegangen, sondern in die Bonn Open. Der Film fragt, was ihn dazu bringt, direkt das nächste große Projekt zu machen.",
-        "Ich habe ihn dort begleitet, für das Format „Day with“ von Unicorn Bakery. Interviews mit Dominic Thiem, Mona Neubaur und Romy Kölzer erzählen die Zeit nach der Karriere, und was Unternehmertum und Leistungssport gemeinsam haben. Es geht darum, wie es wirklich aussieht, ein Turnier dieser Größe zu organisieren.",
-      ],
+      company:
+        "Bonn Open, a tennis tournament built by André Christ after he sold LeanIX to SAP.",
+      moment:
+        "Tournament week. Instead of taking time off after the exit, André went straight into the next big project.",
+      whatWeDid:
+        "A “Day with” for Unicorn Bakery, with interviews with Dominic Thiem, Mona Neubaur and Romy Kölzer – on life after a career, and what entrepreneurship and elite sport have in common.",
+      delivered: "“Day with” episode for Unicorn Bakery",
     },
   },
   {
@@ -121,10 +140,13 @@ export const projects: Project[] = [
       slug: "tech-europe",
       youtubeId: "Rl6PRkdeKC0",
       location: "Berlin",
-      paragraphs: [
-        "Bela und das Team wollten die Konferenz bauen, die dem Ökosystem gefehlt hat: ein Ort für die Leute, die KI in die Anwendung bringen. Technisch, mit denen, die am aktuellen Stand arbeiten. Sie haben bei null angefangen. Wer spricht, wer Partner wird, welches Publikum zusammengehört. Dazu Venue, Marketing und Gespräche mit Partnern.",
-        "Ich habe Bela und das Team vor und während der Konferenz begleitet. Der Film setzt 24 Stunden vor dem Öffnen der Türen ein und zeigt, wie es wirklich aussieht, ein Event dieser Größe zu organisieren.",
-      ],
+      company:
+        "Tech Europe, a conference for the people bringing AI into real-world use – technical, with the ones working at the cutting edge.",
+      moment:
+        "The 24 hours before the doors open. Built from zero: speakers, partners, audience, venue and marketing.",
+      whatWeDid:
+        "I followed Bela and the team before and during the conference – what it really looks like to put on an event of this size.",
+      delivered: "Event documentary",
     },
   },
   {
@@ -140,14 +162,20 @@ export const projects: Project[] = [
     caseStudy: {
       slug: "starlife",
       description:
-        "Mit Leander Maerkisch in New York und Pittsburgh: im Office, in Kliniken und bei Investoren. Eine Dokumentation über Starlife und Roboter, die körperliche Arbeit aus der Ferne möglich machen.",
+        "With Leander Maerkisch in New York and Pittsburgh: in the office, in clinics and with investors. A documentary about Starlife and robots that make physical work possible remotely.",
       ogImage: "/og/starlife.jpg",
-      youtubeId: "4S3bJNSl5kY",
+      muxPlaybackId: "H9vNKjUDo00rT02CAL5bRUdX3TCb00IhYNVV8VBBeti01fc",
       location: "New York",
-      paragraphs: [
-        "Das war die erste Doku dieser Art, die ich gemacht habe. Im April 2026 bin ich nach New York geflogen, eigentlich für einen Urlaub. Vor Ort kam die Idee, ein Startup zu finden und daraus einen Film zu machen. [Fabian Tausch](https://www.linkedin.com/in/fabian-tausch/) kannte Gründer in der Stadt und hat mich an [Mike Mahlkow](https://www.linkedin.com/in/mikemahlkow/) weitergeleitet. Wir haben uns getroffen, und Mike hat noch am selben Tag ein paar Founder angerufen. Der Erste, der geantwortet hat, war [Leander Maerkisch](https://www.linkedin.com/in/leandermaerkisch/), Gründer von Starlife. Mike ist dort auch investiert.",
-        "Am nächsten Tag haben wir angefangen. Ich habe Leander in New York begleitet: im Office, in den Kliniken, in denen die Roboter im Einsatz sind, und in Gesprächen mit Investoren. Mit dabei war sein Mitgründer und CTO [Satrajit Chatterjee](https://www.linkedin.com/in/satrajit-chatterjee/), der die Roboter mit dem Team in der Werkstatt baut. Neben Mike erzählt auch [Paige Craig](https://www.linkedin.com/in/paigecraig/), ebenfalls Investor bei Starlife, was ihn an den beiden überzeugt. Zwischendurch waren wir in Pittsburgh, wo Starlife ein Event hatte. Daraus ist die Geschichte geworden. Starlife baut menschliche Roboter, damit körperliche Arbeit aus der Ferne möglich wird.",
-      ],
+      company:
+        "Starlife builds humanoid robots that make physical work possible remotely.",
+      moment:
+        "First deployments in clinics, conversations with investors and an event in Pittsburgh.",
+      whatWeDid:
+        "5 days in New York and Pittsburgh: in the office, in the workshop with co-founder and CTO [Satrajit Chatterjee](https://www.linkedin.com/in/satrajit-chatterjee/), in the clinics where the robots are deployed, and with investors [Mike Mahlkow](https://www.linkedin.com/in/mikemahlkow/) and [Paige Craig](https://www.linkedin.com/in/paigecraig/). It started as a vacation: [Fabian Tausch](https://www.linkedin.com/in/fabian-tausch/) connected me with Mike, who called a few founders the same day. Leander was the first to reply – we started filming the next morning.",
+      quote: {
+        text: "Holy sh*t! And that's only the teaser? Where's the Oscar?",
+        author: "Leander Maerkisch, Co-Founder & CEO, Starlife",
+      },
     },
   },
   {
@@ -162,12 +190,14 @@ export const projects: Project[] = [
     ],
     caseStudy: {
       slug: "franz-purucker",
-      youtubeId: "yGdKoWTleFg",
+      muxPlaybackId: "mRq37hzdjogE6JWCdfczgOSbhbh44Q6t02axEtvU4sm4",
       location: "New York",
-      paragraphs: [
-        "Ich habe Franz eng begleitet, während er in New York für Research war. Über die Tage habe ich ihm viele Fragen gestellt und daraus die Storyline gebaut, dazu Interviews mit Investoren und Bekannten von ihm. Es ging darum, diese Zeit mitzugehen und so viele authentische Momente wie möglich festzuhalten. Das ist gelungen, im Material und in den Gesprächen.",
-        "Sein Startup ist noch im Stealth. Er baut ein Werkzeug, das Menschen helfen soll, ihre Gewohnheiten zu verändern und ein gesünderes Leben zu führen. Diese Geschichte erzählt die Mini-Doku.",
-      ],
+      company:
+        "A stealth startup building a tool that helps people change their habits and live healthier lives. Franz even got certified as a personal trainer to understand his customers better.",
+      moment:
+        "A research trip to New York – the early phase, before the product goes public.",
+      whatWeDid:
+        "I followed Franz closely in New York, asked him a lot of questions along the way and built the storyline from them – plus interviews with investors and people who know him. The goal: capture as many authentic moments of this phase as possible.",
     },
   },
   {
@@ -187,10 +217,13 @@ export const projects: Project[] = [
     caseStudy: {
       slug: "cortea",
       youtubeId: "qiBnmScpjHY",
-      paragraphs: [
-        "Valentin Neumann und Philipp Hövelmann bauen Cortea. Der Film bleibt bei den beiden Gründern.",
-        "Ich habe sie begleitet, für das Format „Day with“ von Unicorn Bakery. Ein Blick hinter die Kulissen: wie dieses AI-Startup tatsächlich entsteht.",
-      ],
+      company:
+        "[Cortea](https://www.cortea.ai/) builds AI agents for audits – used by firms like Forvis Mazars and KPMG.",
+      moment:
+        "The day-to-day of building an AI startup – the film stays with the two founders.",
+      whatWeDid:
+        "A “Day with” for Unicorn Bakery: a look behind the scenes at how this AI startup actually gets built.",
+      delivered: "“Day with” episode for Unicorn Bakery",
     },
   },
   {
