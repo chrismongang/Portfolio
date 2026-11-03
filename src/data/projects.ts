@@ -5,7 +5,8 @@ export type Person = {
 
 export type CaseStudy = {
   slug: string;
-  youtubeId: string;
+  youtubeId?: string;
+  muxPlaybackId?: string;
   location?: string;
   paragraphs: string[];
 };
@@ -19,6 +20,61 @@ export type Project = {
 };
 
 export const projects: Project[] = [
+  {
+    id: "tech-europe-hackathon",
+    company: "Tech Europe Hackathon",
+    playbackId: "NxtM1yBrfoc01x7n4NdaL00VSZ9i2dnBEGjko4ZU2K2bo",
+    people: [
+      {
+        name: "Vitor Fernandez",
+        linkedin: "https://www.linkedin.com/in/vf-castro",
+      },
+      {
+        name: "Elia Hilse",
+        linkedin: "https://www.linkedin.com/in/eliahilse",
+      },
+    ],
+    caseStudy: {
+      slug: "tech-europe-hackathon",
+      muxPlaybackId: "NxtM1yBrfoc01x7n4NdaL00VSZ9i2dnBEGjko4ZU2K2bo",
+      paragraphs: [
+        "Ich habe Vitor und Elia beim Tech Europe Hackathon begleitet, um ihre Story hautnah zu erzählen. Der Film zeigt, was sie bauen und wie sie damit die Judges überzeugen.",
+      ],
+    },
+  },
+  {
+    id: "macher-festival",
+    company: "Macher Festival",
+    playbackId: "8EqA2g3pcLEtuTBzQALVZTHk2XCSzTwZN2h3OhVzC88",
+    people: [
+      {
+        name: "Daniel Michailidis",
+        linkedin: "https://www.linkedin.com/in/daniel-michailidis-9a76a3123",
+      },
+    ],
+    caseStudy: {
+      slug: "macher-festival",
+      youtubeId: "iFKOEHKQZao",
+      paragraphs: [
+        "Ich habe Daniel Michailidis, den Geschäftsführer des Macher Festivals, für das Format „Day with“ von Unicorn Bakery begleitet. Der Film zeigt, wie es hinter den Kulissen des Festivals wirklich aussieht.",
+      ],
+    },
+  },
+  {
+    id: "aniva",
+    company: "Aniva Health",
+    playbackId: "Qsxxyows6HHSO00vjx3O5TsKs7RzLkGZHi2vQn01FJ2mc",
+    people: [
+      {
+        name: "Jan Hecker",
+        linkedin: "https://www.linkedin.com/in/janhecker",
+      },
+      {
+        name: "Noah Petermann",
+        linkedin: "https://www.linkedin.com/in/noahpetermann",
+      },
+    ],
+  },
   {
     id: "pliant",
     company: "Pliant",

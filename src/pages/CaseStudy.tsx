@@ -1,5 +1,6 @@
 import type { ReactNode } from "react";
 import { Link, Navigate, useParams } from "react-router-dom";
+import { MuxEmbed } from "../components/MuxEmbed";
 import { YouTubeEmbed } from "../components/YouTubeEmbed";
 import { projects } from "../data/projects";
 
@@ -98,13 +99,24 @@ export function CaseStudy() {
         ))}
       </div>
 
-      <div className="mt-10">
-        <YouTubeEmbed
-          videoId={project.caseStudy.youtubeId}
-          title={title}
-          poster={poster}
-        />
-      </div>
+      {project.caseStudy.youtubeId ? (
+        <div className="mt-10">
+          <YouTubeEmbed
+            videoId={project.caseStudy.youtubeId}
+            title={title}
+            poster={poster}
+          />
+        </div>
+      ) : null}
+      {project.caseStudy.muxPlaybackId ? (
+        <div className="mt-10">
+          <MuxEmbed
+            playbackId={project.caseStudy.muxPlaybackId}
+            title={title}
+            poster={`https://image.mux.com/${project.caseStudy.muxPlaybackId}/thumbnail.webp?time=1`}
+          />
+        </div>
+      ) : null}
     </div>
   );
 }

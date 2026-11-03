@@ -48,3 +48,9 @@ mux-player {
   --loading-indicator: none;
   --media-object-fit: cover;
 }
+
+mux-player.film {
+  --controls: flex;
+  --media-object-fit: contain;
+  background: #000;
+}

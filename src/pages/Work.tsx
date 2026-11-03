@@ -5,10 +5,11 @@ import { copy } from "../copy";
 import { projects, type Project } from "../data/projects";
 
 function portfolioRank(project: Project) {
-  if (project.caseStudy?.slug === "franz-purucker") return 0;
-  if (project.caseStudy?.slug === "bonn-open") return 1;
-  if (project.caseStudy) return 2;
-  return 3;
+  if (project.caseStudy?.slug === "starlife") return 0;
+  if (project.caseStudy?.slug === "franz-purucker") return 1;
+  if (project.caseStudy?.slug === "bonn-open") return 2;
+  if (project.caseStudy) return 3;
+  return 4;
 }
 
 const orderedProjects = [...projects].sort((a, b) => {
