@@ -9,7 +9,7 @@ export const founders: Founder[] = [
   { name: "Andre Christ", venture: "Bonn Open" },
   { name: "Valentin Neumann & Philipp Hövelmann", venture: "Cortea" },
   { name: "Julian Wiedenhaus", venture: "Plancraft" },
-  { name: "Bela Wirtz", venture: "Tech Europe" },
+  { name: "Bela Wiertz", venture: "Tech Europe" },
   { name: "Franz Purucker", venture: "Protocol Health" },
   { name: "Leander Maerkisch", venture: "Starlife" },
   { name: "Mike Mahlkow", venture: "Angel Investor" },

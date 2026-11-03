@@ -1,8 +1,16 @@
-import { Link, Outlet } from "react-router-dom";
+import { useEffect } from "react";
+import { Link, Outlet, useLocation } from "react-router-dom";
 import { copy, linkedinUrl } from "../copy";
+import { pageForPath } from "../seo";
 import { ScrollManager } from "./ScrollManager";
 
 export function Layout() {
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    document.title = pageForPath(pathname).title;
+  }, [pathname]);
+
   return (
     <div className="flex min-h-svh w-full min-w-0 flex-col bg-white text-ink">
       <div className="mx-0 flex min-h-svh min-w-0 flex-1 flex-col md:mx-[var(--page-gutter)] md:border-x md:border-rail">

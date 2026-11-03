@@ -5,6 +5,10 @@ export type Person = {
 
 export type CaseStudy = {
   slug: string;
+  /** Text for search results and link previews. Falls back to the first paragraph. */
+  description?: string;
+  /** Link preview image in /public, ideally 1200×630. Falls back to a Mux still. */
+  ogImage?: string;
   youtubeId?: string;
   muxPlaybackId?: string;
   location?: string;
@@ -61,7 +65,7 @@ export const projects: Project[] = [
     },
   },
   {
-    id: "aniva",
+    id: "aniva-health",
     company: "Aniva Health",
     playbackId: "Qsxxyows6HHSO00vjx3O5TsKs7RzLkGZHi2vQn01FJ2mc",
     people: [
@@ -135,11 +139,14 @@ export const projects: Project[] = [
     ],
     caseStudy: {
       slug: "starlife",
+      description:
+        "Mit Leander Maerkisch in New York und Pittsburgh: im Office, in Kliniken und bei Investoren. Eine Dokumentation über Starlife und Roboter, die körperliche Arbeit aus der Ferne möglich machen.",
+      ogImage: "/og/starlife.jpg",
       youtubeId: "4S3bJNSl5kY",
       location: "New York",
       paragraphs: [
         "Das war die erste Doku dieser Art, die ich gemacht habe. Im April 2026 bin ich nach New York geflogen, eigentlich für einen Urlaub. Vor Ort kam die Idee, ein Startup zu finden und daraus einen Film zu machen. [Fabian Tausch](https://www.linkedin.com/in/fabian-tausch/) kannte Gründer in der Stadt und hat mich an [Mike Mahlkow](https://www.linkedin.com/in/mikemahlkow/) weitergeleitet. Wir haben uns getroffen, und Mike hat noch am selben Tag ein paar Founder angerufen. Der Erste, der geantwortet hat, war [Leander Maerkisch](https://www.linkedin.com/in/leandermaerkisch/), Gründer von Starlife. Mike ist dort auch investiert.",
-        "Am nächsten Tag haben wir angefangen. Ich habe Leander in New York begleitet: im Office, in den Kliniken, in denen die Roboter im Einsatz sind, und in Gesprächen mit Investoren, unter anderem mit Mike. Zwischendurch waren wir in Pittsburgh, wo Starlife ein Event hatte. Daraus ist die Geschichte geworden. Starlife baut menschliche Roboter, damit körperliche Arbeit aus der Ferne möglich wird.",
+        "Am nächsten Tag haben wir angefangen. Ich habe Leander in New York begleitet: im Office, in den Kliniken, in denen die Roboter im Einsatz sind, und in Gesprächen mit Investoren. Mit dabei war sein Mitgründer und CTO Satrajit Chatterjee, der die Roboter mit dem Team in der Werkstatt baut. Neben Mike erzählt auch Paige Craig, ebenfalls Investor bei Starlife, was ihn an den beiden überzeugt. Zwischendurch waren wir in Pittsburgh, wo Starlife ein Event hatte. Daraus ist die Geschichte geworden. Starlife baut menschliche Roboter, damit körperliche Arbeit aus der Ferne möglich wird.",
       ],
     },
   },

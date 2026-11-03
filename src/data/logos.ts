@@ -6,7 +6,7 @@ export type Logo = {
 export const logos: Logo[] = [
   { name: "Bonn Open", src: "/logos/bonn-open.png" },
   { name: "Macher Festival", src: "/logos/macher-festival.png" },
-  { name: "Aniva", src: "/logos/aniva.png" },
+  { name: "Aniva Health", src: "/logos/aniva-health.png" },
   { name: "Mitte", src: "/logos/mitte.png" },
   { name: "Plancraft", src: "/logos/plancraft.png" },
   { name: "Pliant", src: "/logos/pliant.png" },
