@@ -29,6 +29,17 @@ export function Layout() {
           </Link>
         </header>
 
+        <span
+          className="rail-glow hidden md:block"
+          style={{ left: "var(--page-gutter)" }}
+          aria-hidden="true"
+        />
+        <span
+          className="rail-glow hidden md:block"
+          style={{ right: "var(--page-gutter)" }}
+          aria-hidden="true"
+        />
+
         <ScrollManager />
         <main className="flex min-w-0 flex-1 flex-col overflow-x-hidden">
           <Outlet />

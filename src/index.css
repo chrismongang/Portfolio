@@ -54,3 +54,66 @@ mux-player.film {
   --media-object-fit: contain;
   background: #000;
 }
+
+/* Light that falls down the side rails, in the "Book a call" gradient. */
+.rail-glow {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  z-index: 30;
+  width: 1px;
+  pointer-events: none;
+}
+
+.rail-glow::before,
+.rail-glow::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 1px;
+  height: 38vh;
+  background: linear-gradient(
+    to bottom,
+    transparent,
+    #c9f4e6 35%,
+    #b7e4f6 75%,
+    transparent
+  );
+  opacity: 0;
+  animation: rail-breathe 9s cubic-bezier(0.45, 0, 0.25, 1) infinite;
+}
+
+/* Soft halo around the line. */
+.rail-glow::after {
+  left: -3px;
+  width: 7px;
+  filter: blur(4px);
+}
+
+@keyframes rail-breathe {
+  0% {
+    transform: translateY(-38vh);
+    opacity: 0;
+  }
+  20% {
+    opacity: 1;
+  }
+  65% {
+    opacity: 1;
+  }
+  80% {
+    transform: translateY(100vh);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(100vh);
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rail-glow {
+    display: none;
+  }
+}
