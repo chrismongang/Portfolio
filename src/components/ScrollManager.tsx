@@ -65,7 +65,7 @@ export function ScrollManager() {
   const handledKey = useRef<string | null>(null);
   const target = useRef(0);
 
-  if (history.scrollRestoration !== "manual") {
+  if (typeof history !== "undefined" && history.scrollRestoration !== "manual") {
     history.scrollRestoration = "manual";
   }
 
