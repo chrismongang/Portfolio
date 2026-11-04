@@ -6,18 +6,25 @@ import { Contact } from "./pages/Contact";
 import { Home } from "./pages/Home";
 import { Work } from "./pages/Work";
 
+/** Shared by the browser app and the build-time prerender. */
+export function AppRoutes() {
+  return (
+    <Routes>
+      <Route element={<Layout />}>
+        <Route path="/" element={<Home />} />
+        <Route path="/work" element={<Work />} />
+        <Route path="/work/:slug" element={<CaseStudy />} />
+        <Route path="/contact" element={<Contact />} />
+      </Route>
+    </Routes>
+  );
+}
+
 export default function App() {
   return (
     <BrowserRouter>
       <Analytics />
-      <Routes>
-        <Route element={<Layout />}>
-          <Route path="/" element={<Home />} />
-          <Route path="/work" element={<Work />} />
-          <Route path="/work/:slug" element={<CaseStudy />} />
-          <Route path="/contact" element={<Contact />} />
-        </Route>
-      </Routes>
+      <AppRoutes />
     </BrowserRouter>
   );
 }

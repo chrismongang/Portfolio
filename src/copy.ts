@@ -1,4 +1,5 @@
 export const copy = {
+  eyebrow: "Chris Mongang · Founder documentaries",
   headline: "Documenting the people building tomorrow.",
   subline:
     "I spend days with founders and their teams and turn the messy, unpolished, world-changing part into short documentaries for talent, investors and your community.",
@@ -9,6 +10,7 @@ export const copy = {
   workSubline: "Documentaries and founder stories",
   contactTitle: "Book a call",
   linkedin: "LinkedIn",
+  instagram: "Instagram",
 } as const;
 
 export const home = {
@@ -102,3 +104,4 @@ export const caseStudyCopy = {
 } as const;
 
 export const linkedinUrl = "https://www.linkedin.com/in/chris-mongang";
+export const instagramUrl = "https://www.instagram.com/chrismongang/";

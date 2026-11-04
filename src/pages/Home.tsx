@@ -33,6 +33,9 @@ export function Home() {
     <div className="flex min-w-0 flex-1 flex-col overflow-x-hidden">
       <section className="flex min-w-0 flex-col items-center px-6 pb-8 pt-16 text-center md:px-10 md:pt-24">
         <h1 className="w-full max-w-full text-balance text-[32px] font-medium leading-[1.12] tracking-[-0.04em] sm:text-[44px] md:text-[56px]">
+          <span className="mb-5 block text-[14px] font-normal tracking-normal text-muted md:text-[15px]">
+            {copy.eyebrow}
+          </span>
           {copy.headline}
         </h1>
         <p className="mt-6 w-full max-w-full break-words text-pretty text-[15px] leading-relaxed text-muted md:max-w-[36rem] md:text-[18px]">

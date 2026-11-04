@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { Link, Outlet, useLocation } from "react-router-dom";
-import { copy, linkedinUrl } from "../copy";
+import { copy, instagramUrl, linkedinUrl } from "../copy";
 import { pageForPath } from "../seo";
 import { ScrollManager } from "./ScrollManager";
 
@@ -45,14 +45,22 @@ export function Layout() {
           <Outlet />
         </main>
 
-        <footer className="overflow-x-hidden px-6 pb-10 pt-8 text-center">
+        <footer className="flex justify-center gap-6 overflow-x-hidden px-6 pb-10 pt-8">
           <a
             href={linkedinUrl}
             target="_blank"
-            rel="noreferrer"
+            rel="me noreferrer"
             className="text-sm font-medium text-muted hover:text-ink"
           >
             {copy.linkedin}
+          </a>
+          <a
+            href={instagramUrl}
+            target="_blank"
+            rel="me noreferrer"
+            className="text-sm font-medium text-muted hover:text-ink"
+          >
+            {copy.instagram}
           </a>
         </footer>
       </div>

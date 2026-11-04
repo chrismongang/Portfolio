@@ -1,8 +1,8 @@
-import { copy } from "./copy.ts";
+import { copy, instagramUrl, linkedinUrl } from "./copy.ts";
 import { projects } from "./data/projects.ts";
 
 // Link previews need absolute URLs, so this must be the live domain.
-export const siteUrl = "https://chrismongang.vercel.app";
+export const siteUrl = "https://www.chrismongang.com";
 
 const siteName = "Chris Mongang";
 
@@ -11,6 +11,8 @@ export type PageMeta = {
   title: string;
   description: string;
   image?: string;
+  /** Structured data for search engines (schema.org JSON-LD). */
+  jsonLd?: object;
 };
 
 function plainText(paragraph: string) {
@@ -44,8 +46,41 @@ const caseStudyPages: PageMeta[] = projects.flatMap((project) => {
 export const pages: PageMeta[] = [
   {
     path: "/",
-    title: `${siteName} · Founder Documentaries`,
-    description: copy.subline,
+    title: `${siteName} · Founder Documentary Filmmaker, Berlin`,
+    description: `${siteName} makes short documentaries with founders and their teams – for talent, investors and community. Based in Berlin, filming across DACH and New York.`,
+    jsonLd: {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "Person",
+          "@id": `${siteUrl}/#person`,
+          name: siteName,
+          url: siteUrl,
+          image: `${siteUrl}/chris.jpg`,
+          jobTitle: "Founder Documentary Filmmaker",
+          description: copy.subline,
+          address: {
+            "@type": "PostalAddress",
+            addressLocality: "Berlin",
+            addressCountry: "DE",
+          },
+          knowsAbout: [
+            "Documentary filmmaking",
+            "Founder documentaries",
+            "Startup storytelling",
+            "Video production",
+          ],
+          sameAs: [linkedinUrl, instagramUrl],
+        },
+        {
+          "@type": "WebSite",
+          "@id": `${siteUrl}/#website`,
+          url: siteUrl,
+          name: siteName,
+          publisher: { "@id": `${siteUrl}/#person` },
+        },
+      ],
+    },
   },
   {
     path: "/work",
@@ -64,6 +99,29 @@ export function pageForPath(path: string) {
   return pages.find((page) => page.path === path) ?? pages[0];
 }
 
+export function pageUrl(page: PageMeta) {
+  return `${siteUrl}${page.path === "/" ? "" : page.path}`;
+}
+
+export function sitemapXml() {
+  const urls = pages
+    .map((page) => `  <url><loc>${pageUrl(page)}</loc></url>`)
+    .join("\n");
+  return `<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+${urls}
+</urlset>
+`;
+}
+
+export function robotsTxt() {
+  return `User-agent: *
+Allow: /
+
+Sitemap: ${siteUrl}/sitemap.xml
+`;
+}
+
 function escape(value: string) {
   return value
     .replaceAll("&", "&amp;")
@@ -74,7 +132,7 @@ function escape(value: string) {
 
 /** Head tags that crawlers read, since they don't run the app's JavaScript. */
 export function headTags(page: PageMeta) {
-  const url = `${siteUrl}${page.path === "/" ? "" : page.path}`;
+  const url = pageUrl(page);
   const image = page.image?.startsWith("/")
     ? `${siteUrl}${page.image}`
     : page.image;
@@ -96,6 +154,11 @@ export function headTags(page: PageMeta) {
       `<meta property="og:image:width" content="1200" />`,
       `<meta property="og:image:height" content="630" />`,
     );
+  }
+  if (page.jsonLd) {
+    // "<" is escaped so the JSON can't close the script tag early.
+    const json = JSON.stringify(page.jsonLd).replaceAll("<", "\\u003c");
+    tags.push(`<script type="application/ld+json">${json}</script>`);
   }
   return tags.join("\n    ");
 }
