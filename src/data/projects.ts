@@ -190,7 +190,7 @@ export const projects: Project[] = [
     ],
     caseStudy: {
       slug: "franz-purucker",
-      muxPlaybackId: "mRq37hzdjogE6JWCdfczgOSbhbh44Q6t02axEtvU4sm4",
+      muxPlaybackId: "aKiEEJ5m02TFXko00jAO1Cpfv6J4riLI4E3m8b8v24wt4",
       location: "New York",
       company:
         "A stealth startup building a tool that helps people change their habits and live healthier lives. Franz even got certified as a personal trainer to understand his customers better.",
