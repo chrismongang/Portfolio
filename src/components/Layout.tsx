@@ -46,6 +46,12 @@ export function Layout() {
         </main>
 
         <footer className="flex justify-center gap-6 overflow-x-hidden px-6 pb-10 pt-8">
+          <Link
+            to="/about"
+            className="text-sm font-medium text-muted hover:text-ink"
+          >
+            {copy.about}
+          </Link>
           <a
             href={linkedinUrl}
             target="_blank"

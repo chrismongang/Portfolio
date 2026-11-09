@@ -1,6 +1,7 @@
 import { Analytics } from "@vercel/analytics/react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { Layout } from "./components/Layout";
+import { About } from "./pages/About";
 import { CaseStudy } from "./pages/CaseStudy";
 import { Contact } from "./pages/Contact";
 import { Home } from "./pages/Home";
@@ -14,6 +15,7 @@ export function AppRoutes() {
         <Route path="/" element={<Home />} />
         <Route path="/work" element={<Work />} />
         <Route path="/work/:slug" element={<CaseStudy />} />
+        <Route path="/about" element={<About />} />
         <Route path="/contact" element={<Contact />} />
       </Route>
     </Routes>

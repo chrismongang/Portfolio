@@ -9,6 +9,15 @@ const siteName = "Chris Mongang";
 // Preview image for pages without their own, built from design/og-default.svg.
 const defaultImage = "/og/default.png";
 
+// Photos of Chris for search engines, best first.
+const aboutImages = [
+  "/about/chris-mongang-portrait.jpg",
+  "/chris-mongang.jpg",
+  "/about/chris-mongang-filming-helicopter.jpg",
+  "/about/chris-mongang-v2v-club-host.jpg",
+  "/about/chris-mongang-boxing.jpg",
+];
+
 export type PageMeta = {
   path: string;
   title: string;
@@ -97,6 +106,26 @@ export const pages: PageMeta[] = [
     title: `${copy.contactTitle} · ${siteName}`,
     description: `15 minutes with ${siteName} about your founder story.`,
     image: defaultImage,
+  },
+  {
+    path: "/about",
+    title: `About ${siteName} · Founder Documentary Filmmaker`,
+    description:
+      "Founder documentary filmmaker based in Berlin. Before that: V2V Club, a street-football event and media brand with 30M+ views, and a bootstrapped sneaker brand.",
+    image: defaultImage,
+    jsonLd: {
+      "@context": "https://schema.org",
+      "@type": "ProfilePage",
+      url: `${siteUrl}/about`,
+      mainEntity: {
+        "@type": "Person",
+        "@id": `${siteUrl}/#person`,
+        name: siteName,
+        image: aboutImages.map((path) => `${siteUrl}${path}`),
+        jobTitle: "Founder Documentary Filmmaker",
+        sameAs: [linkedinUrl, instagramUrl],
+      },
+    },
   },
   ...caseStudyPages,
 ];

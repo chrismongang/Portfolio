@@ -1,7 +1,7 @@
-import type { ReactNode } from "react";
 import { Link } from "react-router-dom";
 import { LogoSlider } from "../components/LogoSlider";
 import { LoopVideo } from "../components/LoopVideo";
+import { Section } from "../components/Section";
 import { copy, home } from "../copy";
 import { projects } from "../data/projects";
 
@@ -12,29 +12,6 @@ const selectedWork = home.selectedWork.map((item) => ({
   ...item,
   project: projects.find((project) => project.caseStudy?.slug === item.slug)!,
 }));
-
-function Section({
-  title,
-  wide,
-  children,
-}: {
-  title?: string;
-  wide?: boolean;
-  children: ReactNode;
-}) {
-  return (
-    <section className="mx-6 border-t border-rail py-20 md:mx-10 md:py-28">
-      <div className={`mx-auto w-full ${wide ? "max-w-5xl" : "max-w-3xl"}`}>
-        {title ? (
-          <h2 className="mb-12 text-balance text-center text-[24px] font-medium leading-[1.2] tracking-[-0.03em] md:text-[32px]">
-            {title}
-          </h2>
-        ) : null}
-        {children}
-      </div>
-    </section>
-  );
-}
 
 export function Home() {
   return (
@@ -165,6 +142,12 @@ export function Home() {
               ))}
             </div>
             <p className="mt-8 text-[14px] text-muted">{home.location}</p>
+            <Link
+              to="/about"
+              className="mt-8 inline-block rounded-xl bg-button px-5 py-2.5 text-[15px] font-medium text-ink hover:bg-[#e8e8e8]"
+            >
+              {home.aboutMore}
+            </Link>
           </div>
         </div>
       </Section>
