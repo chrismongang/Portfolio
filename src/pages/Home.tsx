@@ -13,10 +13,18 @@ const selectedWork = home.selectedWork.map((item) => ({
   project: projects.find((project) => project.caseStudy?.slug === item.slug)!,
 }));
 
-function Section({ title, children }: { title?: string; children: ReactNode }) {
+function Section({
+  title,
+  wide,
+  children,
+}: {
+  title?: string;
+  wide?: boolean;
+  children: ReactNode;
+}) {
   return (
     <section className="mx-6 border-t border-rail py-20 md:mx-10 md:py-28">
-      <div className="mx-auto w-full max-w-3xl">
+      <div className={`mx-auto w-full ${wide ? "max-w-5xl" : "max-w-3xl"}`}>
         {title ? (
           <h2 className="mb-12 text-balance text-center text-[24px] font-medium leading-[1.2] tracking-[-0.03em] md:text-[32px]">
             {title}
@@ -140,19 +148,24 @@ export function Home() {
         </ol>
       </Section>
 
-      <Section>
-        <div className="flex flex-col items-center text-center">
+      <Section wide>
+        <div className="grid items-center gap-10 md:grid-cols-2 md:gap-14">
           <img
-            src="/chris.jpg"
-            alt="Chris Mongang"
-            className="h-32 w-32 rounded-full object-cover object-[50%_18%]"
+            src="/chris-mongang.jpg"
+            alt="Chris Mongang with his camera"
+            width={1200}
+            height={1500}
+            loading="lazy"
+            className="aspect-[4/5] w-full bg-placeholder object-cover"
           />
-          <div className="mt-10 max-w-xl space-y-5 text-pretty text-[16px] leading-relaxed md:text-[17px]">
-            {home.about.map((paragraph) => (
-              <p key={paragraph}>{paragraph}</p>
-            ))}
+          <div>
+            <div className="space-y-5 text-pretty text-[16px] leading-relaxed md:text-[17px]">
+              {home.about.map((paragraph) => (
+                <p key={paragraph}>{paragraph}</p>
+              ))}
+            </div>
+            <p className="mt-8 text-[14px] text-muted">{home.location}</p>
           </div>
-          <p className="mt-8 text-[14px] text-muted">{home.location}</p>
         </div>
       </Section>
 

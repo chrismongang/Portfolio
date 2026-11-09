@@ -6,6 +6,9 @@ export const siteUrl = "https://www.chrismongang.com";
 
 const siteName = "Chris Mongang";
 
+// Preview image for pages without their own, built from design/og-default.svg.
+const defaultImage = "/og/default.png";
+
 export type PageMeta = {
   path: string;
   title: string;
@@ -48,6 +51,7 @@ export const pages: PageMeta[] = [
     path: "/",
     title: `${siteName} · Founder Documentary Filmmaker, Berlin`,
     description: `${siteName} makes short documentaries with founders and their teams – for talent, investors and community. Based in Berlin, filming across DACH and New York.`,
+    image: defaultImage,
     jsonLd: {
       "@context": "https://schema.org",
       "@graph": [
@@ -56,7 +60,7 @@ export const pages: PageMeta[] = [
           "@id": `${siteUrl}/#person`,
           name: siteName,
           url: siteUrl,
-          image: `${siteUrl}/chris.jpg`,
+          image: `${siteUrl}/chris-mongang.jpg`,
           jobTitle: "Founder Documentary Filmmaker",
           description: copy.subline,
           address: {
@@ -86,11 +90,13 @@ export const pages: PageMeta[] = [
     path: "/work",
     title: `${copy.workTitle} · ${siteName}`,
     description: `${copy.workSubline} by ${siteName}.`,
+    image: defaultImage,
   },
   {
     path: "/contact",
     title: `${copy.contactTitle} · ${siteName}`,
     description: `15 minutes with ${siteName} about your founder story.`,
+    image: defaultImage,
   },
   ...caseStudyPages,
 ];
