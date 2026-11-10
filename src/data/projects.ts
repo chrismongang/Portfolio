@@ -190,14 +190,14 @@ export const projects: Project[] = [
     ],
     caseStudy: {
       slug: "franz-purucker",
-      muxPlaybackId: "aKiEEJ5m02TFXko00jAO1Cpfv6J4riLI4E3m8b8v24wt4",
+      muxPlaybackId: "lXLwtv5BW02rSEkxtypR3pP1EN01FAK01L4T6ap9SD9NY8",
       location: "New York",
       company:
         "A stealth startup building a tool that helps people change their habits and live healthier lives. Franz even got certified as a personal trainer to understand his customers better.",
       moment:
-        "A research trip to New York – the early phase, before the product goes public.",
+        "A research trip to New York - the early phase, before the product goes public.",
       whatWeDid:
-        "I followed Franz closely in New York, asked him a lot of questions along the way and built the storyline from them – plus interviews with investors and people who know him. The goal: capture as many authentic moments of this phase as possible.",
+        "I followed Franz closely in New York and asked him a lot of questions along the way. I also interviewed investors and people who know him: [Jubin Gorji](https://www.linkedin.com/in/jubingorji/), [Mike Mahlkow](https://www.linkedin.com/in/mikemahlkow/), [Maxime Kantenwein](https://www.linkedin.com/in/maximekantenwein/) and [Greg Alba](https://www.linkedin.com/in/greg-pz/). The goal: capture as many authentic moments of this phase as possible.",
     },
   },
   {
