@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import { Section } from "../components/Section";
 import { aboutPage, copy, v2vYoutubeUrl } from "../copy";
 
-const { now, v2v, sneakers, boxing } = aboutPage.chapters;
+const { now, building, v2v, sneakers, boxing } = aboutPage.chapters;
 
 type Photo = { src: string; alt: string; width: number; height: number };
 
@@ -19,6 +19,26 @@ const photos = {
     width: 900,
     height: 1600,
   },
+  building: [
+    {
+      src: "/about/chris-mongang-afrolink-cup-arena-screen.jpg",
+      alt: "Tournament software by Chris Mongang on the giant arena screen at the AfroLink Cup 2026, BMW Park Munich",
+      width: 1200,
+      height: 1500,
+    },
+    {
+      src: "/about/chris-mongang-afrolink-cup-pitchside.jpg",
+      alt: "Chris Mongang running the AfroLink Cup tournament system from his laptop at the side of the pitch",
+      width: 768,
+      height: 960,
+    },
+    {
+      src: "/about/chris-mongang-afrolink-cup-arena-laptop.jpg",
+      alt: "Empty BMW Park arena before the AfroLink Cup 2026 with the live score on the screen and code on Chris Mongang's laptop",
+      width: 1280,
+      height: 1600,
+    },
+  ],
   v2v: [
     {
       src: "/about/chris-mongang-v2v-club-host.jpg",
@@ -82,14 +102,38 @@ function Image({ photo, eager }: { photo: Photo; eager?: boolean }) {
   );
 }
 
+type InlineLink = { text: string; href: string };
+
+// Renders a paragraph and turns the first occurrence of link.text into a link.
+function Paragraph({ text, link }: { text: string; link?: InlineLink }) {
+  const index = link ? text.indexOf(link.text) : -1;
+  if (!link || index === -1) return <p>{text}</p>;
+  return (
+    <p>
+      {text.slice(0, index)}
+      <a
+        href={link.href}
+        target="_blank"
+        rel="noreferrer"
+        className="underline underline-offset-[3px] hover:text-muted"
+      >
+        {link.text}
+      </a>
+      {text.slice(index + link.text.length)}
+    </p>
+  );
+}
+
 function Chapter({
   label,
   title,
   text,
+  link,
 }: {
   label: string;
   title: string;
   text: readonly string[];
+  link?: InlineLink;
 }) {
   return (
     <div>
@@ -99,7 +143,7 @@ function Chapter({
       </h2>
       <div className="mt-6 space-y-5 text-pretty text-[16px] leading-relaxed md:text-[17px]">
         {text.map((paragraph) => (
-          <p key={paragraph}>{paragraph}</p>
+          <Paragraph key={paragraph} text={paragraph} link={link} />
         ))}
       </div>
     </div>
@@ -135,6 +179,17 @@ export function About() {
             <Image photo={photos.filming} />
           </div>
           <Chapter {...now} />
+        </div>
+      </Section>
+
+      <Section wide>
+        <div className="max-w-2xl">
+          <Chapter {...building} />
+        </div>
+        <div className="mt-12 grid grid-cols-1 gap-5 sm:grid-cols-3">
+          {photos.building.map((photo) => (
+            <Image key={photo.src} photo={photo} />
+          ))}
         </div>
       </Section>
 

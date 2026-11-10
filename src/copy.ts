@@ -123,6 +123,18 @@ export const aboutPage = {
         "Today I work independently with founders and their teams. Next step: telling their stories over months, not just days.",
       ],
     },
+    building: {
+      label: "2025 – 2026",
+      title: "Building software",
+      text: [
+        "Alongside the camera, I taught myself to build products. First AngebotNow, an AI tool that turns a few photos into a finished quote for tradespeople, tested with a small group of craftsmen. Then the AfroLink Cup 2026 at BMW Park Munich: I built the entire tournament system – live scores, tables and news on the arena's giant screens, plus a fan app with predictions and MVP voting – and ran it from my laptop at the side of the pitch, in front of 4,500 people.",
+        "Shipping something thousands of people watch live, with no second take, taught me what founders feel on launch day.",
+      ],
+      link: {
+        text: "AfroLink Cup 2026",
+        href: "https://afro-link.de/cup-2026",
+      },
+    },
     v2v: {
       label: "2024 – 2025",
       title: "V2V Club",
