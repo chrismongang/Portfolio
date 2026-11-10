@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { Link, Outlet, useLocation } from "react-router-dom";
-import { copy, instagramUrl, linkedinUrl } from "../copy";
+import { copy, instagramUrl, linkedinUrl, xUrl } from "../copy";
 import { pageForPath } from "../seo";
 import { ScrollManager } from "./ScrollManager";
 
@@ -59,6 +59,14 @@ export function Layout() {
             className="text-sm font-medium text-muted hover:text-ink"
           >
             {copy.linkedin}
+          </a>
+          <a
+            href={xUrl}
+            target="_blank"
+            rel="me noreferrer"
+            className="text-sm font-medium text-muted hover:text-ink"
+          >
+            {copy.x}
           </a>
           <a
             href={instagramUrl}

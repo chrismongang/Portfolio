@@ -11,6 +11,7 @@ export const copy = {
   contactTitle: "Book a call",
   linkedin: "LinkedIn",
   instagram: "Instagram",
+  x: "X",
   about: "About",
 } as const;
 
@@ -173,4 +174,5 @@ export const aboutPage = {
 
 export const linkedinUrl = "https://www.linkedin.com/in/chris-mongang";
 export const instagramUrl = "https://www.instagram.com/chrismongang/";
+export const xUrl = "https://x.com/chris_mongang";
 export const v2vYoutubeUrl = "https://www.youtube.com/@v2v-club/videos";

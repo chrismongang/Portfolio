@@ -1,4 +1,4 @@
-import { copy, instagramUrl, linkedinUrl } from "./copy.ts";
+import { copy, instagramUrl, linkedinUrl, xUrl } from "./copy.ts";
 import { projects } from "./data/projects.ts";
 
 // Link previews need absolute URLs, so this must be the live domain.
@@ -83,7 +83,7 @@ export const pages: PageMeta[] = [
             "Startup storytelling",
             "Video production",
           ],
-          sameAs: [linkedinUrl, instagramUrl],
+          sameAs: [linkedinUrl, xUrl, instagramUrl],
         },
         {
           "@type": "WebSite",
@@ -123,7 +123,7 @@ export const pages: PageMeta[] = [
         name: siteName,
         image: aboutImages.map((path) => `${siteUrl}${path}`),
         jobTitle: "Founder Documentary Filmmaker",
-        sameAs: [linkedinUrl, instagramUrl],
+        sameAs: [linkedinUrl, xUrl, instagramUrl],
       },
     },
   },
@@ -182,6 +182,8 @@ export function headTags(page: PageMeta) {
     `<meta property="og:title" content="${escape(page.title)}" />`,
     `<meta property="og:description" content="${escape(page.description)}" />`,
     `<meta name="twitter:card" content="${image ? "summary_large_image" : "summary"}" />`,
+    `<meta name="twitter:site" content="@chris_mongang" />`,
+    `<meta name="twitter:creator" content="@chris_mongang" />`,
   ];
   if (image) {
     tags.push(
