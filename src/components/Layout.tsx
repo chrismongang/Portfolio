@@ -1,8 +1,35 @@
 import { useEffect } from "react";
 import { Link, Outlet, useLocation } from "react-router-dom";
-import { copy, instagramUrl, linkedinUrl, servicePath, xUrl } from "../copy";
+import {
+  copy,
+  instagramUrl,
+  linkedinUrl,
+  servicePath,
+  servicePathDe,
+  xUrl,
+} from "../copy";
 import { pageForPath } from "../seo";
 import { ScrollManager } from "./ScrollManager";
+
+const navItems = [
+  { to: "/", label: copy.home, isActive: (path: string) => path === "/" },
+  {
+    to: servicePath,
+    label: copy.service,
+    isActive: (path: string) =>
+      path.startsWith(servicePath) || path.startsWith(servicePathDe),
+  },
+  {
+    to: "/work",
+    label: copy.workTitle,
+    isActive: (path: string) => path.startsWith("/work"),
+  },
+  {
+    to: "/about",
+    label: copy.about,
+    isActive: (path: string) => path.startsWith("/about"),
+  },
+];
 
 export function Layout() {
   const { pathname } = useLocation();
@@ -30,6 +57,27 @@ export function Layout() {
             Mongang
           </Link>
         </header>
+
+        <nav
+          aria-label="Main"
+          className="nav-pill fixed left-1/2 top-[14px] z-40 hidden -translate-x-1/2 items-center gap-0.5 rounded-full p-1 md:flex"
+        >
+          {navItems.map((item) => {
+            const active = item.isActive(pathname);
+            return (
+              <Link
+                key={item.to}
+                to={item.to}
+                aria-current={active ? "page" : undefined}
+                className={`whitespace-nowrap rounded-full px-3.5 py-2 text-[14px] font-medium leading-none transition-colors ${
+                  active ? "nav-pill-active text-ink" : "text-muted hover:text-ink"
+                }`}
+              >
+                {item.label}
+              </Link>
+            );
+          })}
+        </nav>
 
         <span
           className="rail-glow hidden md:block"

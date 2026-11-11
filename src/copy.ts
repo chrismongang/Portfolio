@@ -14,6 +14,7 @@ export const copy = {
   x: "X",
   about: "About",
   service: "Founder documentaries",
+  home: "Home",
 } as const;
 
 export const home = {
@@ -57,7 +58,7 @@ export const home = {
   steps: [
     {
       title: "Pilot",
-      text: "1 - 2 days with you and your team. One short documentary and clips, delivered within two weeks.",
+      text: "1 - 2 days with you and your team. One short documentary and clips.",
     },
     {
       title: "Partnership",
@@ -93,7 +94,7 @@ export const home = {
     {
       question: "Where do you work?",
       answer:
-        "Based in Berlin. Working across Germany, the DACH region, Europe and New York.",
+        "I'm based in Berlin and work from there. I'm also available across the DACH region, the rest of Europe and New York.",
     },
     {
       question: "Do you film in German or English?",
@@ -107,7 +108,7 @@ export const home = {
 /** The plain facts in third person, so search engines and AI assistants can quote them. */
 export const facts = {
   label: "In short",
-  text: "Chris Mongang is a documentary filmmaker based in Berlin. He produces founder documentaries: short films that follow startup founders and their teams through real working days, made for hiring, fundraising and launches. He has filmed with the founders of Starlife, Cortea, Pliant, Plancraft, Aniva Health, Bonn Open and Tech Europe, and developed the “Day with” format for the founder podcast Unicorn Bakery. He works across Germany, the DACH region and Europe, and in New York.",
+  text: "Chris Mongang is a documentary filmmaker based in Berlin. He produces founder documentaries: short films that follow startup founders and their teams through real working days, made for hiring, fundraising and launches. He has filmed with the founders of Starlife, Cortea, Pliant, Plancraft, Aniva Health, Bonn Open and Tech Europe. He is based in Berlin and works from there, and is also available across the DACH region, the rest of Europe and New York.",
 } as const;
 
 export type ServiceContent = {
@@ -170,7 +171,6 @@ export const servicePage: ServiceContent = {
     items: [
       "One short documentary about you and your team",
       "Short clips cut from the same footage, for LinkedIn and social",
-      "Delivered within two weeks of the shoot",
       "The right to use everything on all your channels, including YouTube, LinkedIn and your website",
     ],
   },
@@ -180,7 +180,7 @@ export const servicePage: ServiceContent = {
   },
   where: {
     title: "Where I work",
-    text: "Based in Berlin. I film across Germany, Austria and Switzerland, in the rest of Europe, and in New York. Films are produced in German or English.",
+    text: "I'm based in Berlin and work from there. I'm also available across the DACH region, the rest of Europe and New York. Films are produced in German or English.",
   },
   work: {
     title: "Founder documentaries I've made",
@@ -189,6 +189,11 @@ export const servicePage: ServiceContent = {
         slug: "starlife",
         title: "Starlife",
         text: "Humanoid robotics startup – 5 days in New York and Pittsburgh",
+      },
+      {
+        slug: "franz-purucker",
+        title: "Franz Purucker",
+        text: "A stealth health startup on a research trip to New York",
       },
       {
         slug: "cortea",
@@ -204,11 +209,6 @@ export const servicePage: ServiceContent = {
         slug: "tech-europe",
         title: "Tech Europe",
         text: "The 24 hours before an AI conference opens in Berlin",
-      },
-      {
-        slug: "macher-festival",
-        title: "Macher Festival",
-        text: "Behind the scenes of a festival for thousands of young makers",
       },
       {
         slug: "tech-europe-hackathon",
@@ -234,7 +234,7 @@ export const servicePage: ServiceContent = {
     {
       question: "How long does it take?",
       answer:
-        "A pilot takes 1–2 shoot days. You get the film and clips within two weeks.",
+        "A pilot takes 1–2 shoot days. When you get the film depends on the scope – we agree on the date before the shoot.",
     },
     {
       question: "Can we use the film on YouTube and LinkedIn?",
@@ -290,7 +290,6 @@ export const servicePageDe: ServiceContent = {
     items: [
       "Eine kurze Doku über euch und euer Team",
       "Kurze Clips aus demselben Material, für LinkedIn und Social Media",
-      "Lieferung innerhalb von zwei Wochen nach dem Dreh",
       "Das Recht, alles auf allen euren Kanälen zu nutzen – auch auf YouTube, LinkedIn und eurer Website",
     ],
   },
@@ -299,7 +298,7 @@ export const servicePageDe: ServiceContent = {
     items: [
       {
         title: "Pilot",
-        text: "1–2 Tage mit euch und eurem Team. Eine kurze Doku und Clips, geliefert innerhalb von zwei Wochen.",
+        text: "1–2 Tage mit euch und eurem Team. Eine kurze Doku und Clips.",
       },
       {
         title: "Partnerschaft",
@@ -313,7 +312,7 @@ export const servicePageDe: ServiceContent = {
   },
   where: {
     title: "Wo ich arbeite",
-    text: "Ich sitze in Berlin und drehe in ganz Deutschland, Österreich und der Schweiz, im übrigen Europa und in New York. Die Filme entstehen auf Deutsch oder Englisch.",
+    text: "Ich sitze in Berlin und arbeite von dort aus. Außerdem bin ich im DACH-Raum, im übrigen Europa und in New York verfügbar. Die Filme entstehen auf Deutsch oder Englisch.",
   },
   work: {
     title: "Gründer-Dokus, die ich gedreht habe",
@@ -322,6 +321,11 @@ export const servicePageDe: ServiceContent = {
         slug: "starlife",
         title: "Starlife",
         text: "Startup für humanoide Roboter – 5 Tage in New York und Pittsburgh",
+      },
+      {
+        slug: "franz-purucker",
+        title: "Franz Purucker",
+        text: "Ein Health-Startup im Stealth-Modus auf Recherchereise in New York",
       },
       {
         slug: "cortea",
@@ -337,11 +341,6 @@ export const servicePageDe: ServiceContent = {
         slug: "tech-europe",
         title: "Tech Europe",
         text: "Die 24 Stunden vor dem Start einer KI-Konferenz in Berlin",
-      },
-      {
-        slug: "macher-festival",
-        title: "Macher Festival",
-        text: "Hinter den Kulissen eines Festivals für tausende junge Macher",
       },
       {
         slug: "tech-europe-hackathon",
@@ -366,7 +365,7 @@ export const servicePageDe: ServiceContent = {
     {
       question: "Wie lange dauert das?",
       answer:
-        "Ein Pilot braucht 1–2 Drehtage. Film und Clips bekommt ihr innerhalb von zwei Wochen.",
+        "Ein Pilot braucht 1–2 Drehtage. Wann ihr den Film bekommt, hängt vom Umfang ab – den Termin legen wir vor dem Dreh gemeinsam fest.",
     },
     {
       question: "Können wir den Film auf YouTube und LinkedIn nutzen?",
@@ -385,7 +384,7 @@ export const servicePageDe: ServiceContent = {
   ],
   facts: {
     label: "Kurz gesagt",
-    text: "Chris Mongang ist Dokumentarfilmer aus Berlin. Er produziert Gründer-Dokus: kurze Filme, die Startup-Gründer und ihre Teams durch echte Arbeitstage begleiten – für Recruiting, Fundraising und Launches. Er hat mit den Gründern von Starlife, Cortea, Pliant, Plancraft, Aniva Health, Bonn Open und Tech Europe gedreht und für den Gründer-Podcast Unicorn Bakery das Format „Day with“ entwickelt. Er arbeitet in Deutschland, im gesamten DACH-Raum, in Europa und in New York.",
+    text: "Chris Mongang ist Dokumentarfilmer aus Berlin. Er produziert Gründer-Dokus: kurze Filme, die Startup-Gründer und ihre Teams durch echte Arbeitstage begleiten – für Recruiting, Fundraising und Launches. Er hat mit den Gründern von Starlife, Cortea, Pliant, Plancraft, Aniva Health, Bonn Open und Tech Europe gedreht. Er sitzt in Berlin, arbeitet von dort aus und ist außerdem im DACH-Raum, im übrigen Europa und in New York verfügbar.",
   },
   closing: "Ihr wollt eine Doku über euer Unternehmen?",
   cta: "Gespräch buchen",

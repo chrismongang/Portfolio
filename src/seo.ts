@@ -202,7 +202,7 @@ export const pages: PageMeta[] = [
   {
     path: "/",
     title: `${siteName} · Founder Documentary Filmmaker, Berlin`,
-    description: `${siteName} makes short documentaries with founders and their teams – for talent, investors and community. Based in Berlin, filming across DACH and New York.`,
+    description: `${siteName} makes short documentaries with founders and their teams – for talent, investors and community. Based in Berlin, available across DACH, Europe and New York.`,
     image: defaultImage,
     jsonLd: {
       "@context": "https://schema.org",
