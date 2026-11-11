@@ -96,9 +96,12 @@ function overlaps(a: Box, b: Box) {
 export function Globe({
   labels,
   lang,
+  listPlaces = false,
 }: {
   labels: ServiceContent["where"]["globe"];
   lang: "en" | "de";
+  /** Also names every place in a sentence below the globe. */
+  listPlaces?: boolean;
 }) {
   const wrapRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -445,10 +448,14 @@ export function Globe({
             {labels.available}
           </li>
         </ul>
-        <p className="mx-auto mt-4 max-w-2xl text-pretty text-[14px] leading-relaxed text-muted">
-          {labels.filmedIn} {filmedIn}.
+        {listPlaces ? (
+          <p className="mx-auto mt-4 max-w-2xl text-pretty text-[14px] leading-relaxed text-muted">
+            {labels.filmedIn} {filmedIn}.
+          </p>
+        ) : null}
+        <p className={`${listPlaces ? "mt-1" : "mt-4"} text-[13px] text-muted/70`}>
+          {labels.hint}
         </p>
-        <p className="mt-1 text-[13px] text-muted/70">{labels.hint}</p>
       </figcaption>
     </figure>
   );

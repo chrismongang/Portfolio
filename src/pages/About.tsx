@@ -1,9 +1,11 @@
 import { Link } from "react-router-dom";
+import { Globe } from "../components/Globe";
 import { Section } from "../components/Section";
 import {
   aboutPage,
   copy,
   facts,
+  servicePage,
   servicePath,
   v2vYoutubeUrl,
 } from "../copy";
@@ -188,6 +190,13 @@ export function About() {
           </div>
         </div>
       </section>
+
+      <Section title={servicePage.where.title} wide>
+        <p className="mx-auto max-w-xl text-pretty text-center text-[16px] leading-relaxed md:text-[17px]">
+          {servicePage.where.text}
+        </p>
+        <Globe labels={servicePage.where.globe} lang="en" listPlaces />
+      </Section>
 
       <Section wide>
         <div className="grid items-center gap-10 md:grid-cols-2 md:gap-14">
