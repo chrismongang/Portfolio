@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { Link, Outlet, useLocation } from "react-router-dom";
-import { copy, instagramUrl, linkedinUrl, xUrl } from "../copy";
+import { copy, instagramUrl, linkedinUrl, servicePath, xUrl } from "../copy";
 import { pageForPath } from "../seo";
 import { ScrollManager } from "./ScrollManager";
 
@@ -8,7 +8,9 @@ export function Layout() {
   const { pathname } = useLocation();
 
   useEffect(() => {
-    document.title = pageForPath(pathname).title;
+    const page = pageForPath(pathname);
+    document.title = page.title;
+    document.documentElement.lang = page.lang ?? "en";
   }, [pathname]);
 
   return (
@@ -45,7 +47,13 @@ export function Layout() {
           <Outlet />
         </main>
 
-        <footer className="flex justify-center gap-6 overflow-x-hidden px-6 pb-10 pt-8">
+        <footer className="flex flex-wrap justify-center gap-x-6 gap-y-3 overflow-x-hidden px-6 pb-10 pt-8">
+          <Link
+            to={servicePath}
+            className="text-sm font-medium text-muted hover:text-ink"
+          >
+            {copy.service}
+          </Link>
           <Link
             to="/about"
             className="text-sm font-medium text-muted hover:text-ink"

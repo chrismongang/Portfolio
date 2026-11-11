@@ -10,6 +10,10 @@ export type CaseStudy = {
   /** Link preview image in /public, ideally 1200×630. Falls back to a Mux still. */
   ogImage?: string;
   youtubeId?: string;
+  /** Day the film went public on YouTube, as YYYY-MM-DD. */
+  published?: string;
+  /** Length of the published film. */
+  durationSeconds?: number;
   muxPlaybackId?: string;
   location?: string;
   /** What the company does. Text may contain [links](https://…). */
@@ -70,6 +74,8 @@ export const projects: Project[] = [
     caseStudy: {
       slug: "macher-festival",
       youtubeId: "iFKOEHKQZao",
+      published: "2026-10-14",
+      durationSeconds: 2423,
       location: "Ferropolis",
       company:
         "[Macher Festival](https://www.macherfestival.io/), a hands-on festival where thousands of young people build vehicles, learn crafts and try out ideas – led by managing director Daniel Michailidis.",
@@ -116,6 +122,8 @@ export const projects: Project[] = [
     caseStudy: {
       slug: "bonn-open",
       youtubeId: "Gn5wdPP4sfo",
+      published: "2026-10-07",
+      durationSeconds: 1587,
       location: "Bonn",
       company:
         "Bonn Open, a tennis tournament built by André Christ after he sold LeanIX to SAP.",
@@ -139,6 +147,8 @@ export const projects: Project[] = [
     caseStudy: {
       slug: "tech-europe",
       youtubeId: "Rl6PRkdeKC0",
+      published: "2026-07-17",
+      durationSeconds: 1902,
       location: "Berlin",
       company:
         "Tech Europe, a conference for the people bringing AI into real-world use – technical, with the ones working at the cutting edge.",
@@ -217,6 +227,8 @@ export const projects: Project[] = [
     caseStudy: {
       slug: "cortea",
       youtubeId: "qiBnmScpjHY",
+      published: "2026-09-30",
+      durationSeconds: 1279,
       company:
         "[Cortea](https://www.cortea.ai/) builds AI agents for audits – used by firms like Forvis Mazars and KPMG.",
       moment:

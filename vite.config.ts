@@ -3,14 +3,23 @@ import react from '@vitejs/plugin-react'
 import { mkdirSync, readFileSync, writeFileSync } from 'node:fs'
 import { dirname, join } from 'node:path'
 import { createServer, defineConfig, type Plugin } from 'vite'
-import { headTags, pageForPath, pages, robotsTxt, sitemapXml } from './src/seo.ts'
+import {
+  headTags,
+  llmsTxt,
+  pageForPath,
+  pages,
+  robotsTxt,
+  sitemapXml,
+} from './src/seo.ts'
 
 const headMarker = /<!--head-->[\s\S]*?<!--\/head-->/
 const emptyRoot = '<div id="root"></div>'
 
 // Writes one HTML file per route with its own title, preview tags and
 // prerendered content, so search engines and links shared on LinkedIn,
-// WhatsApp & co. see the right page. Also writes the sitemap and robots.txt.
+// WhatsApp & co. see the right page. Also writes the sitemap, robots.txt and
+// llms.txt. The page at /404 becomes 404.html, which Vercel serves for unknown
+// addresses.
 function pageHeads(): Plugin {
   let outDir = 'dist'
   return {
@@ -43,6 +52,7 @@ function pageHeads(): Plugin {
           writeFileSync(
             file,
             html
+              .replace('<html lang="en">', `<html lang="${page.lang ?? 'en'}">`)
               .replace(
                 headMarker,
                 `<!--head-->\n    ${headTags(page)}\n    <!--/head-->`,
@@ -53,7 +63,9 @@ function pageHeads(): Plugin {
       } finally {
         await server.close()
       }
-      writeFileSync(join(outDir, 'sitemap.xml'), sitemapXml())
+      const today = new Date().toISOString().slice(0, 10)
+      writeFileSync(join(outDir, 'sitemap.xml'), sitemapXml(today))
+      writeFileSync(join(outDir, 'llms.txt'), llmsTxt())
       writeFileSync(join(outDir, 'robots.txt'), robotsTxt())
     },
   }

@@ -1,6 +1,12 @@
 import { Link } from "react-router-dom";
 import { Section } from "../components/Section";
-import { aboutPage, copy, v2vYoutubeUrl } from "../copy";
+import {
+  aboutPage,
+  copy,
+  facts,
+  servicePath,
+  v2vYoutubeUrl,
+} from "../copy";
 
 const { now, building, v2v, sneakers, boxing } = aboutPage.chapters;
 
@@ -168,6 +174,16 @@ export function About() {
                 <p key={paragraph}>{paragraph}</p>
               ))}
             </div>
+            <p className="mt-8 text-pretty text-[14px] leading-relaxed text-muted">
+              <span className="font-medium text-ink">{facts.label}: </span>
+              {facts.text}{" "}
+              <Link
+                to={servicePath}
+                className="underline underline-offset-[3px] hover:text-ink"
+              >
+                {aboutPage.serviceLink}
+              </Link>
+            </p>
             <p className="mt-8 text-[14px] text-muted">{aboutPage.location}</p>
           </div>
         </div>
