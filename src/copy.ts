@@ -470,9 +470,8 @@ export const leadForm = {
     emailLabel: "Email",
     whatsappLabel: "WhatsApp",
     whatsappPlaceholder: "+49 … (optional)",
-    whatsappPlaceholderRequired: "+49 …",
-    viaLabel: "Reach me via",
-    viaOptions: ["Email", "WhatsApp", "LinkedIn"],
+    messageLabel: "Anything else I should know?",
+    messagePlaceholder: "Optional",
     privacy: "I only use your answers to get back to you. No newsletter.",
     privacyLink: "Privacy",
   },
@@ -483,13 +482,8 @@ export const leadForm = {
   error: "That didn't go through. Please try again, or book a call instead.",
   done: {
     title: (firstName: string) => `Got it, thanks, ${firstName}.`,
-    text: (subject: string, via: string) =>
-      `I'll look at ${subject} and get back to you ${via}, usually within one working day.`,
-    via: {
-      Email: "by email",
-      WhatsApp: "on WhatsApp",
-      LinkedIn: "on LinkedIn",
-    } as Record<string, string>,
+    text: (subject: string) =>
+      `I'll look at ${subject} and get back to you, usually within one working day.`,
     callQuestion: "Rather talk now?",
     callButton: "Book a 15-min call",
   },

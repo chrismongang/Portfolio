@@ -83,9 +83,9 @@ export const privacy: LegalPage = {
     {
       heading: "The form “Tell me about your startup”",
       lines: [
-        "When you send the form, I receive what you enter: company, website, stage, what the film should do for you, your timing, your name, email address, optionally your WhatsApp number, and how you would like to be contacted.",
+        "When you send the form, I receive what you enter: company, website, stage, what the film should do for you, your timing, your name, email address, and optionally your WhatsApp number and a message.",
         "I use this only to answer your inquiry and prepare a possible project (Art. 6 (1) (b) GDPR). There is no newsletter and I do not pass your data on for advertising.",
-        "The answers are delivered and stored through Resend, Inc., USA (email delivery and contact list) and Google Ireland Limited (a Google Sheets table). Both act as processors on my behalf. If you choose WhatsApp as your contact channel, I will write to you there; WhatsApp's own privacy terms then apply.",
+        "The answers are delivered and stored through Resend, Inc., USA (email delivery and contact list) and Google Ireland Limited (a Google Sheets table). Both act as processors on my behalf. If you give me your WhatsApp number, I may write to you there; WhatsApp's own privacy terms then apply.",
         "I delete your inquiry once it is settled, at the latest twelve months after our last contact, unless we work together or the law requires me to keep it longer. You can ask me to delete it at any time.",
       ],
     },

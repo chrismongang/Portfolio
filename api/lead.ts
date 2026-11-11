@@ -24,6 +24,7 @@ const SEGMENT_ID = "7bac9a00-1470-4734-a309-4ff384f81e29"; // "Website Leads"
 const FROM_LEADS = "Website Leads <leads@chrismongang.com>";
 const FROM_CHRIS = "Chris Mongang <hello@chrismongang.com>";
 const SITE = "https://www.chrismongang.com";
+const LINKEDIN = "https://www.linkedin.com/in/chris-mongang";
 
 type Lead = {
   company: string;
@@ -34,7 +35,7 @@ type Lead = {
   name: string;
   email: string;
   whatsapp: string;
-  reachVia: string;
+  message: string;
 };
 
 export default {
@@ -91,7 +92,7 @@ export default {
       goals: lead.goals.join(", "),
       timing: lead.timing,
       whatsapp: lead.whatsapp,
-      reach_via: lead.reachVia,
+      message: lead.message,
       lead_status: "new",
       lead_date: new Date().toISOString().slice(0, 10),
     };
@@ -120,7 +121,13 @@ export default {
       await fetch(sheetUrl, {
         method: "POST",
         headers: { "content-type": "application/json" },
-        body: JSON.stringify({ ...lead, goals: lead.goals.join(", ") }),
+        // The sheet script fills the column "Nachricht" from the field it
+        // calls reachVia (left over from an earlier version of the form).
+        body: JSON.stringify({
+          ...lead,
+          goals: lead.goals.join(", "),
+          reachVia: lead.message,
+        }),
         signal: AbortSignal.timeout(8000),
       })
         .then((response) => {
@@ -135,7 +142,8 @@ export default {
       to: lead.email,
       replyTo: notifyTo,
       subject: `Got your note about ${lead.company}`,
-      text: confirmationText(lead, firstName),
+      html: confirmationHtml(lead, firstName, notifyTo),
+      text: confirmationText(lead, firstName, notifyTo),
       tags: [{ name: "type", value: "lead_confirmation" }],
     });
     if (confirmation.error) {
@@ -161,7 +169,8 @@ function readLead(data: Record<string, unknown> | null): Lead | null {
     name: text(data.name),
     email: text(data.email).toLowerCase(),
     whatsapp: text(data.whatsapp),
-    reachVia: text(data.reachVia),
+    message:
+      typeof data.message === "string" ? data.message.trim().slice(0, 1000) : "",
   };
   const complete =
     lead.company &&
@@ -169,9 +178,7 @@ function readLead(data: Record<string, unknown> | null): Lead | null {
     lead.goals.length > 0 &&
     lead.timing &&
     lead.name &&
-    lead.reachVia &&
-    /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(lead.email) &&
-    (lead.reachVia !== "WhatsApp" || lead.whatsapp);
+    /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(lead.email);
   return complete ? lead : null;
 }
 
@@ -185,7 +192,7 @@ function rows(lead: Lead): [string, string][] {
     ["Name", lead.name],
     ["Email", lead.email],
     ["WhatsApp", lead.whatsapp || "–"],
-    ["Reach via", lead.reachVia],
+    ["Message", lead.message || "–"],
   ];
 }
 
@@ -213,7 +220,7 @@ function notificationHtml(lead: Lead) {
       const shown = links[label]
         ? `<a href="${escape(links[label])}" style="color:#111111">${escape(value)}</a>`
         : escape(value);
-      return `<tr><td style="padding:6px 24px 6px 0;color:#8a8a8a;white-space:nowrap;vertical-align:top">${label}</td><td style="padding:6px 0">${shown}</td></tr>`;
+      return `<tr><td style="padding:6px 24px 6px 0;color:#8a8a8a;white-space:nowrap;vertical-align:top">${label}</td><td style="padding:6px 0;white-space:pre-line">${shown}</td></tr>`;
     })
     .join("");
   return `<div style="font-family:Helvetica,Arial,sans-serif;font-size:15px;line-height:1.5;color:#111111">
@@ -223,25 +230,51 @@ function notificationHtml(lead: Lead) {
 </div>`;
 }
 
-function confirmationText(lead: Lead, firstName: string) {
-  const via =
-    lead.reachVia === "WhatsApp"
-      ? "on WhatsApp"
-      : lead.reachVia === "LinkedIn"
-        ? "on LinkedIn"
-        : "by email";
-  const look = lead.website ? ` I'll take a look at ${lead.website} and` : " I'll";
-  return `Hi ${firstName},
+// The confirmation mail: three short paragraphs, then Chris's signature.
+function confirmationLines(lead: Lead, firstName: string) {
+  const look = lead.website ? `I'll take a look at ${lead.website} and` : "I'll";
+  return [
+    `Hi ${firstName},`,
+    `thanks for telling me about ${lead.company}. ${look} get back to you, usually within one working day.`,
+    `If you'd rather talk right away, you can book 15 minutes here: ${SITE}/contact`,
+    "Chris",
+  ];
+}
 
-thanks for telling me about ${lead.company}.${look} get back to you ${via}, usually within one working day.
+function confirmationText(lead: Lead, firstName: string, replyTo: string) {
+  return `${confirmationLines(lead, firstName).join("\n\n")}
 
-If you'd rather talk right away, you can book 15 minutes here:
-${SITE}/contact
+--
+Chris Mongang
+Founder documentaries · Berlin · New York
+${SITE} · ${LINKEDIN}
+${replyTo}`;
+}
 
-Chris
+function confirmationHtml(lead: Lead, firstName: string, replyTo: string) {
+  const paragraphs = confirmationLines(lead, firstName)
+    .map((line) => {
+      const linked = escape(line).replace(
+        `${SITE}/contact`,
+        `<a href="${SITE}/contact" style="color:#111111">chrismongang.com/contact</a>`,
+      );
+      return `<p style="margin:0 0 16px">${linked}</p>`;
+    })
+    .join("");
+  return `<div style="font-family:Helvetica,Arial,sans-serif;font-size:15px;line-height:1.5;color:#111111">
+${paragraphs}
+${signatureHtml(replyTo)}
+</div>`;
+}
 
-Chris Mongang · Founder documentaries
-${SITE}`;
+// Same signature as in email-signature.html (the one Chris uses in Gmail).
+function signatureHtml(email: string) {
+  return `<table cellpadding="0" cellspacing="0" border="0" role="presentation" style="margin-top:28px;border-collapse:collapse;font-family:Helvetica,Arial,sans-serif;color:#111111">
+<tr><td style="padding:0 0 2px 0;font-size:15px;line-height:20px;font-weight:bold;letter-spacing:-0.2px;color:#111111">Chris Mongang</td></tr>
+<tr><td style="padding:0 0 14px 0;font-size:13px;line-height:18px;color:#8a8a8a">Founder documentaries · Berlin · New York</td></tr>
+<tr><td style="font-size:13px;line-height:18px;color:#8a8a8a"><a href="${SITE}" style="color:#111111;text-decoration:none">chrismongang.com</a>&nbsp;·&nbsp;<a href="${LINKEDIN}" style="color:#111111;text-decoration:none">LinkedIn</a></td></tr>
+<tr><td style="padding:2px 0 0 0;font-size:13px;line-height:18px"><a href="mailto:${escape(email)}" style="color:#8a8a8a;text-decoration:none">${escape(email)}</a></td></tr>
+</table>`;
 }
 
 function escape(value: string) {

@@ -57,19 +57,16 @@ export function Start() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [whatsapp, setWhatsapp] = useState("");
-  const [reachVia, setReachVia] = useState("Email");
+  const [message, setMessage] = useState("");
   // Hidden from people. Bots fill it in, and the server then drops the entry.
   const [fax, setFax] = useState("");
 
-  const needsWhatsapp = reachVia === "WhatsApp";
   const canContinue = [
     company.trim() !== "",
     stage !== "",
     goals.length > 0,
     timing !== "",
-    name.trim() !== "" &&
-      /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim()) &&
-      (!needsWhatsapp || whatsapp.trim() !== ""),
+    name.trim() !== "" && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim()),
   ][step];
 
   function toggleGoal(goal: string) {
@@ -106,7 +103,7 @@ export function Start() {
           name,
           email,
           whatsapp,
-          reachVia,
+          message,
           fax,
         }),
       });
@@ -124,10 +121,7 @@ export function Start() {
           {text.done.title(firstName)}
         </h1>
         <p className="mt-5 text-pretty text-[16px] leading-relaxed text-muted md:text-[18px]">
-          {text.done.text(
-            website.trim() || company.trim(),
-            text.done.via[reachVia],
-          )}
+          {text.done.text(website.trim() || company.trim())}
         </p>
         <p className="mt-14 text-[15px] text-muted">{text.done.callQuestion}</p>
         <Link
@@ -293,30 +287,21 @@ export function Start() {
                 type="tel"
                 value={whatsapp}
                 onChange={(event) => setWhatsapp(event.target.value)}
-                placeholder={
-                  needsWhatsapp
-                    ? text.reach.whatsappPlaceholderRequired
-                    : text.reach.whatsappPlaceholder
-                }
+                placeholder={text.reach.whatsappPlaceholder}
                 autoComplete="tel"
                 maxLength={40}
               />
             </Field>
-            <div>
-              <span className="mb-1.5 block text-[14px] text-muted">
-                {text.reach.viaLabel}
-              </span>
-              <div className="flex flex-wrap gap-2">
-                {text.reach.viaOptions.map((option) => (
-                  <Choice
-                    key={option}
-                    label={option}
-                    selected={reachVia === option}
-                    onClick={() => setReachVia(option)}
-                  />
-                ))}
-              </div>
-            </div>
+            <Field label={text.reach.messageLabel}>
+              <textarea
+                className={`${input} min-h-24 resize-y`}
+                value={message}
+                onChange={(event) => setMessage(event.target.value)}
+                placeholder={text.reach.messagePlaceholder}
+                rows={3}
+                maxLength={1000}
+              />
+            </Field>
             <input
               className="hidden"
               tabIndex={-1}
