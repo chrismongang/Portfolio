@@ -122,7 +122,7 @@ export function Service({ content }: { content: ServiceContent }) {
         <p className="mx-auto max-w-xl text-pretty text-center text-[16px] leading-relaxed md:text-[17px]">
           {content.where.text}
         </p>
-        <Globe labels={content.where.globe} />
+        <Globe labels={content.where.globe} lang={content.lang} />
       </Section>
 
       <Section title={content.faqTitle}>

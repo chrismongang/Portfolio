@@ -113,6 +113,7 @@ export const facts = {
 } as const;
 
 export type ServiceContent = {
+  lang: "en" | "de";
   eyebrow: string;
   title: string;
   intro: string;
@@ -130,9 +131,8 @@ export type ServiceContent = {
       filmed: string;
       available: string;
       hint: string;
+      /** Followed by the list of places. */
       filmedIn: string;
-      zoomIn: string;
-      zoomOut: string;
     };
   };
   work: {
@@ -153,6 +153,7 @@ export const servicePath = "/founder-documentary";
 export const servicePathDe = "/de/gruender-doku";
 
 export const servicePage: ServiceContent = {
+  lang: "en",
   eyebrow: "Founder documentaries",
   title: "Founder documentaries for startups and scale-ups",
   intro:
@@ -198,15 +199,12 @@ export const servicePage: ServiceContent = {
     text: "I'm based in Berlin and work from there. I'm also available across the DACH region, the rest of Europe and New York. Films are produced in German or English.",
     globe: {
       label:
-        "Globe showing where Chris Mongang works: based in Berlin, available across the DACH region, the rest of Europe and New York.",
+        "Globe showing where Chris Mongang works: based in Berlin, available across the DACH region, the rest of Europe and the United States.",
       base: "Based in Berlin",
       filmed: "Filmed here",
       available: "Available for projects",
       hint: "Drag to turn the globe",
-      filmedIn:
-        "Filmed so far in Berlin, Bonn, Ferropolis, New York and Pittsburgh.",
-      zoomIn: "Zoom in",
-      zoomOut: "Zoom out",
+      filmedIn: "Filmed so far in",
     },
   },
   work: {
@@ -284,6 +282,7 @@ export const servicePage: ServiceContent = {
 };
 
 export const servicePageDe: ServiceContent = {
+  lang: "de",
   eyebrow: "Gründer-Dokus",
   title: "Gründer-Dokus für Startups und Scale-ups",
   intro:
@@ -342,15 +341,12 @@ export const servicePageDe: ServiceContent = {
     text: "Ich sitze in Berlin und arbeite von dort aus. Außerdem bin ich im DACH-Raum, im übrigen Europa und in New York verfügbar. Die Filme entstehen auf Deutsch oder Englisch.",
     globe: {
       label:
-        "Globus, der zeigt, wo Chris Mongang arbeitet: Sitz in Berlin, verfügbar im DACH-Raum, im übrigen Europa und in New York.",
+        "Globus, der zeigt, wo Chris Mongang arbeitet: Sitz in Berlin, verfügbar im DACH-Raum, im übrigen Europa und in den USA.",
       base: "Sitz in Berlin",
       filmed: "Hier gedreht",
       available: "Für Projekte verfügbar",
       hint: "Zum Drehen ziehen",
-      filmedIn:
-        "Bisher gedreht in Berlin, Bonn, Ferropolis, New York und Pittsburgh.",
-      zoomIn: "Vergrößern",
-      zoomOut: "Verkleinern",
+      filmedIn: "Bisher gedreht in",
     },
   },
   work: {
