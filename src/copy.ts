@@ -13,6 +13,9 @@ export const copy = {
   instagram: "Instagram",
   x: "X",
   about: "About",
+  service: "Founder documentaries",
+  serviceShort: "Documentaries",
+  home: "Home",
 } as const;
 
 export const home = {
@@ -44,9 +47,9 @@ export const home = {
       text: "How an AI startup actually gets built",
     },
     {
-      slug: "bonn-open",
-      title: "Bonn Open",
-      text: "He sold LeanIX – then built a tennis tournament",
+      slug: "franz-purucker",
+      title: "Franz Purucker",
+      text: "A stealth health startup on a research trip to New York",
     },
   ],
   quote: "Holy sh*t. And that's only the teaser?",
@@ -56,14 +59,14 @@ export const home = {
   steps: [
     {
       title: "Pilot",
-      text: "1 - 2 days with you and your team. One short documentary and clips, delivered within two weeks.",
+      text: "1 - 2 days with you and your team. One short documentary and clips.",
     },
     {
       title: "Partnership",
       text: "A few shoot days every month. Your story, captured as it happens -> episodes, clips and an archive that grows.",
     },
     {
-      title: "Flagship film",
+      title: "Documentary film",
       text: "When the story is ready, a longer film from everything we've captured. Length follows the story.",
     },
   ],
@@ -91,10 +94,342 @@ export const home = {
     },
     {
       question: "Where do you work?",
-      answer: "Based in Berlin. Working across DACH and New York.",
+      answer:
+        "I'm based in Berlin and work from there. I'm also available across the DACH region, the rest of Europe and New York.",
+    },
+    {
+      question: "Do you film in German or English?",
+      answer: "Both.",
     },
   ],
+  howMore: "What a founder documentary is and what you get",
   closing: "Raising, launching or hiring? Let's talk.",
+} as const;
+
+/** The plain facts in third person, so search engines and AI assistants can quote them. */
+export const facts = {
+  label: "In short",
+  text: "Chris Mongang is a documentary filmmaker based in Berlin. He produces founder documentaries: short films that follow startup founders and their teams through real working days, made for hiring, fundraising and launches. He has filmed with the founders of Starlife, Cortea, Pliant, Plancraft, Aniva Health, Bonn Open and Tech Europe. He is based in Berlin and works from there, and is also available across the DACH region, the rest of Europe and New York.",
+} as const;
+
+export type ServiceContent = {
+  lang: "en" | "de";
+  eyebrow: string;
+  title: string;
+  intro: string;
+  what: { title: string; text: string[] };
+  forWhom: { title: string; items: { label: string; text: string }[] };
+  deliverables: { title: string; items: string[] };
+  steps: { title: string; items: { title: string; text: string }[] };
+  where: {
+    title: string;
+    text: string;
+    globe: {
+      /** Read out by screen readers instead of the drawing. */
+      label: string;
+      base: string;
+      filmed: string;
+      available: string;
+      hint: string;
+      /** Followed by the list of places. */
+      filmedIn: string;
+    };
+  };
+  work: {
+    title: string;
+    items: { slug: string; title: string; text: string }[];
+    all: string;
+  };
+  faqTitle: string;
+  faq: { question: string; answer: string }[];
+  facts: { label: string; text: string };
+  closing: string;
+  cta: string;
+  /** Link to the same page in the other language. */
+  otherLanguage: { text: string; path: string };
+};
+
+export const servicePath = "/founder-documentary";
+export const servicePathDe = "/de/gruender-doku";
+
+export const servicePage: ServiceContent = {
+  lang: "en",
+  eyebrow: "Founder documentaries",
+  title: "Founder documentaries for startups and scale-ups",
+  intro:
+    "Short documentaries that show how your company is actually being built – for hiring, fundraising and launches.",
+  what: {
+    title: "What is a founder documentary?",
+    text: [
+      "A founder documentary is a short film that shows how a company is actually being built. No script, no actors, no studio.",
+      "I spend one or more days with the founder and the team, film the real work, and add one interview of about an hour. The result is a film people watch to the end because nothing in it is staged.",
+    ],
+  },
+  forWhom: {
+    title: "Who it's for",
+    items: [
+      {
+        label: "Raising",
+        text: "Founders who are raising: investors see the team in action, not a deck.",
+      },
+      {
+        label: "Hiring",
+        text: "Startups and scale-ups that are hiring: candidates meet your culture before the first call.",
+      },
+      {
+        label: "Launching",
+        text: "Teams that are launching: show the build behind the product.",
+      },
+    ],
+  },
+  deliverables: {
+    title: "What you get",
+    items: [
+      "One short documentary about you and your team",
+      "Short clips cut from the same footage, for LinkedIn and social",
+      "The right to use everything on all your channels, including YouTube, LinkedIn and your website",
+    ],
+  },
+  steps: {
+    title: "How it works",
+    items: home.steps.map((step) => ({ ...step })),
+  },
+  where: {
+    title: "Where I work",
+    text: "I'm based in Berlin and work from there. I'm also available across the DACH region, the rest of Europe and New York. Films are produced in German or English.",
+    globe: {
+      label:
+        "Globe showing where Chris Mongang works: based in Berlin, available across the DACH region, the rest of Europe and the United States.",
+      base: "Based in Berlin",
+      filmed: "Filmed here",
+      available: "Available for projects",
+      hint: "Drag to turn the globe",
+      filmedIn: "Filmed so far in",
+    },
+  },
+  work: {
+    title: "Founder documentaries I've made",
+    items: [
+      {
+        slug: "starlife",
+        title: "Starlife",
+        text: "Humanoid robotics startup – 5 days in New York and Pittsburgh",
+      },
+      {
+        slug: "franz-purucker",
+        title: "Franz Purucker",
+        text: "A stealth health startup on a research trip to New York",
+      },
+      {
+        slug: "cortea",
+        title: "Cortea",
+        text: "A day inside a Berlin AI startup",
+      },
+      {
+        slug: "bonn-open",
+        title: "Bonn Open",
+        text: "André Christ sold LeanIX to SAP – then built a tennis tournament",
+      },
+      {
+        slug: "tech-europe",
+        title: "Tech Europe",
+        text: "The 24 hours before an AI conference opens in Berlin",
+      },
+      {
+        slug: "tech-europe-hackathon",
+        title: "Tech Europe Hackathon",
+        text: "Two founders, one hackathon: from the first idea to the pitch",
+      },
+    ],
+    all: "See all work",
+  },
+  faqTitle: "Questions",
+  faq: [
+    {
+      question: "Who produces founder documentaries in Germany?",
+      answer:
+        "Chris Mongang is a Berlin-based filmmaker who specialises in documentaries about startup founders. He has filmed with founders in Berlin, Bonn, New York and Pittsburgh.",
+    },
+    {
+      question:
+        "How is a founder documentary different from a corporate video?",
+      answer:
+        "A corporate video is scripted and shows the company the way marketing wants it to look. A founder documentary follows real days and keeps the unpolished parts in. That is why people trust it.",
+    },
+    {
+      question: "How long does it take?",
+      answer:
+        "A pilot takes 1–2 shoot days. When you get the film depends on the scope – we agree on the date before the shoot.",
+    },
+    {
+      question: "Can we use the film on YouTube and LinkedIn?",
+      answer: "Yes. You can use everything on all your channels.",
+    },
+    {
+      question: "How much of our time does it take?",
+      answer:
+        "Almost none. I shadow your day – one interview of about an hour at most.",
+    },
+    {
+      question: "What about confidential tech?",
+      answer: "NDA by default. Nothing goes public without your approval.",
+    },
+  ],
+  facts,
+  closing: "Want a documentary about your company?",
+  cta: copy.bookCall,
+  otherLanguage: { text: "Diese Seite auf Deutsch", path: servicePathDe },
+};
+
+export const servicePageDe: ServiceContent = {
+  lang: "de",
+  eyebrow: "Gründer-Dokus",
+  title: "Gründer-Dokus für Startups und Scale-ups",
+  intro:
+    "Kurze Dokumentarfilme, die zeigen, wie euer Unternehmen wirklich gebaut wird – für Recruiting, Fundraising und Launches.",
+  what: {
+    title: "Was ist eine Gründer-Doku?",
+    text: [
+      "Eine Gründer-Doku ist ein kurzer Dokumentarfilm, der zeigt, wie ein Unternehmen wirklich gebaut wird. Ohne Drehbuch, ohne Schauspieler, ohne Studio.",
+      "Ich begleite Gründerin oder Gründer und das Team einen oder mehrere Tage mit der Kamera, filme die echte Arbeit und führe ein Interview von etwa einer Stunde. Heraus kommt ein Film, den Menschen bis zum Ende schauen, weil nichts darin gestellt ist.",
+    ],
+  },
+  forWhom: {
+    title: "Für wen",
+    items: [
+      {
+        label: "Fundraising",
+        text: "Gründer in einer Finanzierungsrunde: Investoren sehen das Team bei der Arbeit, nicht nur ein Deck.",
+      },
+      {
+        label: "Recruiting",
+        text: "Startups und Scale-ups, die einstellen: Kandidaten lernen eure Kultur vor dem ersten Gespräch kennen.",
+      },
+      {
+        label: "Launch",
+        text: "Teams vor einem Launch: zeigt, was hinter dem Produkt steckt.",
+      },
+    ],
+  },
+  deliverables: {
+    title: "Was ihr bekommt",
+    items: [
+      "Eine kurze Doku über euch und euer Team",
+      "Kurze Clips aus demselben Material, für LinkedIn und Social Media",
+      "Das Recht, alles auf allen euren Kanälen zu nutzen – auch auf YouTube, LinkedIn und eurer Website",
+    ],
+  },
+  steps: {
+    title: "So läuft es ab",
+    items: [
+      {
+        title: "Pilot",
+        text: "1–2 Tage mit euch und eurem Team. Eine kurze Doku und Clips.",
+      },
+      {
+        title: "Partnerschaft",
+        text: "Ein paar Drehtage pro Monat. Eure Geschichte wird festgehalten, während sie passiert – als Episoden, Clips und ein Archiv, das wächst.",
+      },
+      {
+        title: "Dokumentarfilm",
+        text: "Wenn die Geschichte so weit ist: ein längerer Film aus allem, was wir gedreht haben. Die Länge richtet sich nach der Geschichte.",
+      },
+    ],
+  },
+  where: {
+    title: "Wo ich arbeite",
+    text: "Ich sitze in Berlin und arbeite von dort aus. Außerdem bin ich im DACH-Raum, im übrigen Europa und in New York verfügbar. Die Filme entstehen auf Deutsch oder Englisch.",
+    globe: {
+      label:
+        "Globus, der zeigt, wo Chris Mongang arbeitet: Sitz in Berlin, verfügbar im DACH-Raum, im übrigen Europa und in den USA.",
+      base: "Sitz in Berlin",
+      filmed: "Hier gedreht",
+      available: "Für Projekte verfügbar",
+      hint: "Zum Drehen ziehen",
+      filmedIn: "Bisher gedreht in",
+    },
+  },
+  work: {
+    title: "Gründer-Dokus, die ich gedreht habe",
+    items: [
+      {
+        slug: "starlife",
+        title: "Starlife",
+        text: "Startup für humanoide Roboter – 5 Tage in New York und Pittsburgh",
+      },
+      {
+        slug: "franz-purucker",
+        title: "Franz Purucker",
+        text: "Ein Health-Startup im Stealth-Modus auf Recherchereise in New York",
+      },
+      {
+        slug: "cortea",
+        title: "Cortea",
+        text: "Ein Tag in einem Berliner KI-Startup",
+      },
+      {
+        slug: "bonn-open",
+        title: "Bonn Open",
+        text: "André Christ verkaufte LeanIX an SAP – und baute dann ein Tennisturnier",
+      },
+      {
+        slug: "tech-europe",
+        title: "Tech Europe",
+        text: "Die 24 Stunden vor dem Start einer KI-Konferenz in Berlin",
+      },
+      {
+        slug: "tech-europe-hackathon",
+        title: "Tech Europe Hackathon",
+        text: "Zwei Gründer, ein Hackathon: von der ersten Idee bis zum Pitch",
+      },
+    ],
+    all: "Alle Arbeiten ansehen",
+  },
+  faqTitle: "Fragen",
+  faq: [
+    {
+      question: "Wer produziert Gründer-Dokus in Deutschland?",
+      answer:
+        "Chris Mongang ist ein Filmemacher aus Berlin, der sich auf Dokumentarfilme über Startup-Gründer spezialisiert hat. Er hat mit Gründern in Berlin, Bonn, New York und Pittsburgh gedreht.",
+    },
+    {
+      question: "Was unterscheidet eine Gründer-Doku von einem Imagefilm?",
+      answer:
+        "Ein Imagefilm folgt einem Drehbuch und zeigt das Unternehmen so, wie das Marketing es sehen möchte. Eine Gründer-Doku begleitet echte Tage und lässt auch das Unperfekte drin. Deshalb vertrauen Menschen ihr.",
+    },
+    {
+      question: "Wie lange dauert das?",
+      answer:
+        "Ein Pilot braucht 1–2 Drehtage. Wann ihr den Film bekommt, hängt vom Umfang ab – den Termin legen wir vor dem Dreh gemeinsam fest.",
+    },
+    {
+      question: "Können wir den Film auf YouTube und LinkedIn nutzen?",
+      answer: "Ja. Ihr könnt alles auf allen euren Kanälen nutzen.",
+    },
+    {
+      question: "Wie viel Zeit kostet uns das?",
+      answer:
+        "Fast keine. Ich begleite euren Tag – dazu kommt höchstens ein Interview von etwa einer Stunde.",
+    },
+    {
+      question: "Was ist mit vertraulicher Technik?",
+      answer:
+        "Eine Vertraulichkeitsvereinbarung ist Standard. Nichts wird ohne eure Freigabe veröffentlicht.",
+    },
+  ],
+  facts: {
+    label: "Kurz gesagt",
+    text: "Chris Mongang ist Dokumentarfilmer aus Berlin. Er produziert Gründer-Dokus: kurze Filme, die Startup-Gründer und ihre Teams durch echte Arbeitstage begleiten – für Recruiting, Fundraising und Launches. Er hat mit den Gründern von Starlife, Cortea, Pliant, Plancraft, Aniva Health, Bonn Open und Tech Europe gedreht. Er sitzt in Berlin, arbeitet von dort aus und ist außerdem im DACH-Raum, im übrigen Europa und in New York verfügbar.",
+  },
+  closing: "Ihr wollt eine Doku über euer Unternehmen?",
+  cta: "Gespräch buchen",
+  otherLanguage: { text: "This page in English", path: servicePath },
+};
+
+export const notFound = {
+  title: "Page not found",
+  text: "This page doesn't exist.",
+  home: "Back to the start page",
 } as const;
 
 export const caseStudyCopy = {
@@ -104,6 +439,7 @@ export const caseStudyCopy = {
   whatWeDid: "What we did",
   delivered: "Delivered",
   cta: "Want this for your team?",
+  more: "How a founder documentary works",
 } as const;
 
 export const aboutPage = {
@@ -114,6 +450,7 @@ export const aboutPage = {
     "Before I picked up the camera for other people's stories, I built my own: a sneaker brand, a street-football event and media brand, and videos for my own channels. I know how much of building never makes it to the outside.",
   ],
   location: "Berlin · New York",
+  serviceLink: "How a founder documentary works",
   chapters: {
     now: {
       label: "Now",

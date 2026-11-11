@@ -2,7 +2,7 @@ import type { ReactNode } from "react";
 import { Link, Navigate, useParams } from "react-router-dom";
 import { MuxEmbed } from "../components/MuxEmbed";
 import { YouTubeEmbed } from "../components/YouTubeEmbed";
-import { caseStudyCopy, copy } from "../copy";
+import { caseStudyCopy, copy, servicePath } from "../copy";
 import { projects } from "../data/projects";
 
 const unicornBakeryName = "Unicorn Bakery";
@@ -157,6 +157,12 @@ export function CaseStudy() {
           className="mt-8 rounded-xl bg-gradient-to-r from-[#c9f4e6] to-[#b7e4f6] px-5 py-2.5 text-[15px] font-medium text-ink hover:from-[#bdecd9] hover:to-[#a6dcf0]"
         >
           {copy.bookCall}
+        </Link>
+        <Link
+          to={servicePath}
+          className="mt-8 text-[15px] font-medium hover:underline"
+        >
+          {caseStudyCopy.more} →
         </Link>
       </div>
     </div>

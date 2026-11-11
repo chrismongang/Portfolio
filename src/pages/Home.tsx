@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import { LogoSlider } from "../components/LogoSlider";
 import { LoopVideo } from "../components/LoopVideo";
 import { Section } from "../components/Section";
-import { copy, home } from "../copy";
+import { copy, facts, home, servicePath } from "../copy";
 import { projects } from "../data/projects";
 
 // Placeholder until there is a dedicated showreel on Mux.
@@ -123,6 +123,14 @@ export function Home() {
             </li>
           ))}
         </ol>
+        <div className="mt-14 text-center">
+          <Link
+            to={servicePath}
+            className="text-[15px] font-medium hover:underline"
+          >
+            {home.howMore} →
+          </Link>
+        </div>
       </Section>
 
       <Section wide>
@@ -171,6 +179,10 @@ export function Home() {
             </details>
           ))}
         </div>
+        <p className="mx-auto mt-14 max-w-xl text-pretty text-[14px] leading-relaxed text-muted">
+          <span className="font-medium text-ink">{facts.label}: </span>
+          {facts.text}
+        </p>
       </Section>
 
       <Section>
