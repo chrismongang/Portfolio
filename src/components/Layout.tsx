@@ -8,6 +8,7 @@ import {
   servicePathDe,
   xUrl,
 } from "../copy";
+import { imprint, imprintPath, privacy, privacyPath } from "../legal";
 import { pageForPath } from "../seo";
 import { ScrollManager } from "./ScrollManager";
 
@@ -41,7 +42,7 @@ const navItems = [
 
 export function Layout() {
   const { pathname } = useLocation();
-  const showCall = pathname !== "/contact";
+  const showCall = pathname !== "/contact" && pathname !== "/start";
 
   useEffect(() => {
     const page = pageForPath(pathname);
@@ -62,10 +63,10 @@ export function Layout() {
           {/* Phones and tablets: the call button sits between the two names. */}
           {showCall ? (
             <Link
-              to="/contact"
+              to="/start"
               className="absolute left-1/2 -translate-x-1/2 whitespace-nowrap rounded-full bg-gradient-to-r from-[#c9f4e6] to-[#b7e4f6] px-4 py-2.5 text-[14px] font-medium leading-none text-ink lg:hidden"
             >
-              {copy.bookCall}
+              {copy.startCtaShort}
             </Link>
           ) : null}
           <Link
@@ -109,10 +110,10 @@ export function Layout() {
           </nav>
           {showCall ? (
             <Link
-              to="/contact"
+              to="/start"
               className="hidden whitespace-nowrap rounded-full bg-gradient-to-r from-[#c9f4e6] to-[#b7e4f6] px-4 py-3 text-[14px] font-medium leading-none text-ink shadow-[0_6px_24px_rgba(17,17,17,0.06)] hover:from-[#bdecd9] hover:to-[#a6dcf0] lg:block"
             >
-              {copy.bookCall}
+              {copy.startCta}
             </Link>
           ) : null}
         </div>
@@ -170,6 +171,18 @@ export function Layout() {
           >
             {copy.instagram}
           </a>
+          <Link
+            to={imprintPath}
+            className="text-sm font-medium text-muted hover:text-ink"
+          >
+            {imprint.title}
+          </Link>
+          <Link
+            to={privacyPath}
+            className="text-sm font-medium text-muted hover:text-ink"
+          >
+            {privacy.title}
+          </Link>
         </footer>
       </div>
     </div>

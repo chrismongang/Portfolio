@@ -2,7 +2,7 @@ import tailwindcss from '@tailwindcss/vite'
 import react from '@vitejs/plugin-react'
 import { mkdirSync, readFileSync, writeFileSync } from 'node:fs'
 import { dirname, join } from 'node:path'
-import { createServer, defineConfig, type Plugin } from 'vite'
+import { createServer, defineConfig, loadEnv, type Plugin } from 'vite'
 import {
   headTags,
   llmsTxt,
@@ -71,6 +71,35 @@ function pageHeads(): Plugin {
   }
 }
 
+// Vercel runs api/lead.ts in production. This runs the same file during
+// `npm run dev`, so the form on /start can be tested on your own machine.
+function devApi(): Plugin {
+  return {
+    name: 'dev-api',
+    apply: 'serve',
+    configureServer(server) {
+      Object.assign(
+        process.env,
+        loadEnv('development', process.cwd(), ['RESEND_', 'LEAD_']),
+      )
+      server.middlewares.use('/api/lead', async (req, res) => {
+        const chunks: Buffer[] = []
+        for await (const chunk of req) chunks.push(chunk)
+        const { default: handler } = await server.ssrLoadModule('/api/lead.ts')
+        const response: Response = await handler.fetch(
+          new Request('http://localhost/api/lead', {
+            method: req.method,
+            body: req.method === 'POST' ? Buffer.concat(chunks) : undefined,
+          }),
+        )
+        res.statusCode = response.status
+        res.setHeader('content-type', 'application/json')
+        res.end(await response.text())
+      })
+    },
+  }
+}
+
 export default defineConfig({
-  plugins: [react(), tailwindcss(), pageHeads()],
+  plugins: [react(), tailwindcss(), pageHeads(), devApi()],
 })

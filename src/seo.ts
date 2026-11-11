@@ -3,6 +3,7 @@ import {
   facts,
   home,
   instagramUrl,
+  leadForm,
   linkedinUrl,
   notFound,
   servicePage,
@@ -12,6 +13,7 @@ import {
   xUrl,
   type ServiceContent,
 } from "./copy.ts";
+import { imprint, imprintPath, privacy, privacyPath } from "./legal.ts";
 import { projects } from "./data/projects.ts";
 
 // Link previews need absolute URLs, so this must be the live domain.
@@ -259,6 +261,12 @@ export const pages: PageMeta[] = [
     image: defaultImage,
   },
   {
+    path: "/start",
+    title: `${leadForm.title} · ${siteName}`,
+    description: `Five quick questions about your startup. ${siteName} gets back to you personally.`,
+    image: defaultImage,
+  },
+  {
     path: "/about",
     title: `About ${siteName} · Founder Documentary Filmmaker`,
     description:
@@ -275,6 +283,18 @@ export const pages: PageMeta[] = [
     },
   },
   ...caseStudyPages,
+  {
+    path: imprintPath,
+    title: `${imprint.title} · ${siteName}`,
+    description: `Legal notice for the website of ${siteName}.`,
+    noindex: true,
+  },
+  {
+    path: privacyPath,
+    title: `${privacy.title} · ${siteName}`,
+    description: `How the website of ${siteName} handles personal data.`,
+    noindex: true,
+  },
   notFoundPage,
 ];
 
@@ -326,6 +346,7 @@ export function llmsTxt() {
 - [Gründer-Dokus](${siteUrl}${servicePathDe}): The same page in German
 - [Work](${siteUrl}/work): All documentaries and founder stories
 - [About](${siteUrl}/about): Chris Mongang's background and earlier projects
+- [Start](${siteUrl}/start): Tell Chris about your startup in five quick questions
 - [Contact](${siteUrl}/contact): Book a 15-minute call
 
 ## Case studies

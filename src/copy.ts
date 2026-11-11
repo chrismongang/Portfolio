@@ -5,6 +5,8 @@ export const copy = {
     "I spend days with founders and their teams and turn the messy, unpolished, world-changing part into short documentaries for talent, investors and your community.",
   seeWork: "Work",
   bookCall: "Book a call",
+  startCta: "Tell me about your startup",
+  startCtaShort: "Start in 60 sec",
   workedWith: "Founders I've filmed with",
   workTitle: "Work",
   workSubline: "Documentaries and founder stories",
@@ -277,7 +279,7 @@ export const servicePage: ServiceContent = {
   ],
   facts,
   closing: "Want a documentary about your company?",
-  cta: copy.bookCall,
+  cta: copy.startCta,
   otherLanguage: { text: "Diese Seite auf Deutsch", path: servicePathDe },
 };
 
@@ -422,8 +424,77 @@ export const servicePageDe: ServiceContent = {
     text: "Chris Mongang ist Dokumentarfilmer aus Berlin. Er produziert Gründer-Dokus: kurze Filme, die Startup-Gründer und ihre Teams durch echte Arbeitstage begleiten – für Recruiting, Fundraising und Launches. Er hat mit den Gründern von Starlife, Cortea, Pliant, Plancraft, Aniva Health, Bonn Open und Tech Europe gedreht. Er sitzt in Berlin, arbeitet von dort aus und ist außerdem im DACH-Raum, im übrigen Europa und in New York verfügbar.",
   },
   closing: "Ihr wollt eine Doku über euer Unternehmen?",
-  cta: "Gespräch buchen",
+  cta: "Erzählt mir von eurem Startup",
   otherLanguage: { text: "This page in English", path: servicePath },
+};
+
+/** The five questions on /start. The answers go to api/lead.ts. */
+export const leadForm = {
+  title: "Tell me about your startup",
+  intro: "Five quick questions. Takes about 60 seconds.",
+  company: {
+    question: "What are you building?",
+    companyLabel: "Company",
+    companyPlaceholder: "Acme Robotics",
+    websiteLabel: "Website",
+    websitePlaceholder: "acme.com (optional)",
+  },
+  stage: {
+    question: "Where are you right now?",
+    options: ["Pre-seed", "Seed", "Series A", "Series B+", "Bootstrapped"],
+  },
+  goals: {
+    question: "What should the film do for you?",
+    hint: "Pick at least one.",
+    options: [
+      "Attract talent",
+      "Support fundraising",
+      "Win customer trust",
+      "Build founder brand",
+    ],
+    /** Clears the other choices when picked. */
+    unsure: "Not sure yet",
+  },
+  timing: {
+    question: "When would you want to start?",
+    options: [
+      "As soon as possible",
+      "Q1 2027",
+      "Later in 2027",
+      "Just exploring",
+    ],
+  },
+  reach: {
+    question: "Where can I reach you?",
+    nameLabel: "Name",
+    emailLabel: "Email",
+    whatsappLabel: "WhatsApp",
+    whatsappPlaceholder: "+49 … (optional)",
+    whatsappPlaceholderRequired: "+49 …",
+    viaLabel: "Reach me via",
+    viaOptions: ["Email", "WhatsApp", "LinkedIn"],
+    privacy: "I only use your answers to get back to you. No newsletter.",
+    privacyLink: "Privacy",
+  },
+  next: "Continue",
+  back: "Back",
+  send: "Send to Chris",
+  sending: "Sending …",
+  error: "That didn't go through. Please try again, or book a call instead.",
+  done: {
+    title: (firstName: string) => `Got it, thanks, ${firstName}.`,
+    text: (subject: string, via: string) =>
+      `I'll look at ${subject} and get back to you ${via}, usually within one working day.`,
+    via: {
+      Email: "by email",
+      WhatsApp: "on WhatsApp",
+      LinkedIn: "on LinkedIn",
+    } as Record<string, string>,
+    callQuestion: "Rather talk now?",
+    callButton: "Book a 15-min call",
+  },
+  preferCall: "Prefer to talk? Book a call",
+  preferForm: "Rather write? Tell me about your startup",
 };
 
 export const notFound = {

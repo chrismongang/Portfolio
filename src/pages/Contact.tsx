@@ -1,8 +1,12 @@
 import Cal, { getCalApi } from "@calcom/embed-react";
 import { useEffect } from "react";
-import { copy } from "../copy";
+import { Link, useLocation } from "react-router-dom";
+import { copy, leadForm } from "../copy";
 
 export function Contact() {
+  // Someone who just sent the form on /start arrives with name and email filled in.
+  const lead = useLocation().state as { name?: string; email?: string } | null;
+
   useEffect(() => {
     void (async () => {
       const cal = await getCalApi({ namespace: "15min" });
@@ -28,9 +32,19 @@ export function Contact() {
             layout: "month_view",
             useSlotsViewOnSmallScreen: "true",
             lang: "en",
+            ...(lead?.name ? { name: lead.name } : {}),
+            ...(lead?.email ? { email: lead.email } : {}),
           }}
         />
       </div>
+      {lead ? null : (
+        <Link
+          to="/start"
+          className="mt-6 text-center text-[15px] font-medium text-muted hover:text-ink"
+        >
+          {leadForm.preferForm} →
+        </Link>
+      )}
     </div>
   );
 }

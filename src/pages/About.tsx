@@ -317,10 +317,10 @@ export function About() {
             {aboutPage.closing}
           </h2>
           <Link
-            to="/contact"
+            to="/start"
             className="mt-10 rounded-xl bg-gradient-to-r from-[#c9f4e6] to-[#b7e4f6] px-5 py-2.5 text-[15px] font-medium text-ink hover:from-[#bdecd9] hover:to-[#a6dcf0]"
           >
-            {copy.bookCall}
+            {copy.startCta}
           </Link>
         </div>
       </Section>
