@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { Globe } from "../components/Globe";
 import { LoopVideo } from "../components/LoopVideo";
 import { Section } from "../components/Section";
 import type { ServiceContent } from "../copy";
@@ -117,10 +118,11 @@ export function Service({ content }: { content: ServiceContent }) {
         </div>
       </Section>
 
-      <Section title={content.where.title}>
-        <p className="mx-auto max-w-xl text-pretty text-[16px] leading-relaxed md:text-[17px]">
+      <Section title={content.where.title} wide>
+        <p className="mx-auto max-w-xl text-pretty text-center text-[16px] leading-relaxed md:text-[17px]">
           {content.where.text}
         </p>
+        <Globe labels={content.where.globe} />
       </Section>
 
       <Section title={content.faqTitle}>

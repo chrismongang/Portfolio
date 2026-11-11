@@ -12,27 +12,36 @@ import { pageForPath } from "../seo";
 import { ScrollManager } from "./ScrollManager";
 
 const navItems = [
-  { to: "/", label: copy.home, isActive: (path: string) => path === "/" },
+  {
+    to: "/",
+    label: copy.home,
+    short: undefined,
+    isActive: (path: string) => path === "/",
+  },
   {
     to: servicePath,
     label: copy.service,
+    short: copy.serviceShort,
     isActive: (path: string) =>
       path.startsWith(servicePath) || path.startsWith(servicePathDe),
   },
   {
     to: "/work",
     label: copy.workTitle,
+    short: undefined,
     isActive: (path: string) => path.startsWith("/work"),
   },
   {
     to: "/about",
     label: copy.about,
+    short: undefined,
     isActive: (path: string) => path.startsWith("/about"),
   },
 ];
 
 export function Layout() {
   const { pathname } = useLocation();
+  const showCall = pathname !== "/contact";
 
   useEffect(() => {
     const page = pageForPath(pathname);
@@ -50,6 +59,15 @@ export function Layout() {
           >
             Chris
           </Link>
+          {/* Phones and tablets: the call button sits between the two names. */}
+          {showCall ? (
+            <Link
+              to="/contact"
+              className="absolute left-1/2 -translate-x-1/2 whitespace-nowrap rounded-full bg-gradient-to-r from-[#c9f4e6] to-[#b7e4f6] px-4 py-2.5 text-[14px] font-medium leading-none text-ink lg:hidden"
+            >
+              {copy.bookCall}
+            </Link>
+          ) : null}
           <Link
             to="/"
             className="text-[17px] font-medium tracking-[-0.02em] md:absolute md:left-full md:top-0 md:flex md:h-full md:w-[var(--page-gutter)] md:items-center md:justify-center md:px-0"
@@ -58,26 +76,46 @@ export function Layout() {
           </Link>
         </header>
 
-        <nav
-          aria-label="Main"
-          className="nav-pill fixed left-1/2 top-[14px] z-40 hidden -translate-x-1/2 items-center gap-0.5 rounded-full p-1 md:flex"
-        >
-          {navItems.map((item) => {
-            const active = item.isActive(pathname);
-            return (
-              <Link
-                key={item.to}
-                to={item.to}
-                aria-current={active ? "page" : undefined}
-                className={`whitespace-nowrap rounded-full px-3.5 py-2 text-[14px] font-medium leading-none transition-colors ${
-                  active ? "nav-pill-active text-ink" : "text-muted hover:text-ink"
-                }`}
-              >
-                {item.label}
-              </Link>
-            );
-          })}
-        </nav>
+        {/* Floats at the bottom on phones and tablets, at the top on desktop. */}
+        <div className="fixed bottom-[max(1rem,env(safe-area-inset-bottom))] left-1/2 z-40 flex -translate-x-1/2 items-center gap-2 lg:bottom-auto lg:top-[14px]">
+          <nav
+            aria-label="Main"
+            className="nav-pill flex items-center gap-0.5 rounded-full p-1"
+          >
+            {navItems.map((item) => {
+              const active = item.isActive(pathname);
+              return (
+                <Link
+                  key={item.to}
+                  to={item.to}
+                  aria-current={active ? "page" : undefined}
+                  className={`whitespace-nowrap rounded-full px-3 py-2.5 text-[13px] font-medium leading-none transition-colors sm:px-3.5 sm:text-[14px] lg:py-2 ${
+                    active
+                      ? "nav-pill-active text-ink"
+                      : "text-muted hover:text-ink"
+                  }`}
+                >
+                  {item.short ? (
+                    <>
+                      <span className="lg:hidden">{item.short}</span>
+                      <span className="hidden lg:inline">{item.label}</span>
+                    </>
+                  ) : (
+                    item.label
+                  )}
+                </Link>
+              );
+            })}
+          </nav>
+          {showCall ? (
+            <Link
+              to="/contact"
+              className="hidden whitespace-nowrap rounded-full bg-gradient-to-r from-[#c9f4e6] to-[#b7e4f6] px-4 py-3 text-[14px] font-medium leading-none text-ink shadow-[0_6px_24px_rgba(17,17,17,0.06)] hover:from-[#bdecd9] hover:to-[#a6dcf0] lg:block"
+            >
+              {copy.bookCall}
+            </Link>
+          ) : null}
+        </div>
 
         <span
           className="rail-glow hidden md:block"
@@ -95,7 +133,7 @@ export function Layout() {
           <Outlet />
         </main>
 
-        <footer className="flex flex-wrap justify-center gap-x-6 gap-y-3 overflow-x-hidden px-6 pb-10 pt-8">
+        <footer className="flex flex-wrap justify-center gap-x-6 gap-y-3 overflow-x-hidden px-6 pb-28 pt-8 lg:pb-10">
           <Link
             to={servicePath}
             className="text-sm font-medium text-muted hover:text-ink"

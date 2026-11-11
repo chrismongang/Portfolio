@@ -14,6 +14,7 @@ export const copy = {
   x: "X",
   about: "About",
   service: "Founder documentaries",
+  serviceShort: "Documentaries",
   home: "Home",
 } as const;
 
@@ -46,9 +47,9 @@ export const home = {
       text: "How an AI startup actually gets built",
     },
     {
-      slug: "bonn-open",
-      title: "Bonn Open",
-      text: "He sold LeanIX – then built a tennis tournament",
+      slug: "franz-purucker",
+      title: "Franz Purucker",
+      text: "A stealth health startup on a research trip to New York",
     },
   ],
   quote: "Holy sh*t. And that's only the teaser?",
@@ -65,7 +66,7 @@ export const home = {
       text: "A few shoot days every month. Your story, captured as it happens -> episodes, clips and an archive that grows.",
     },
     {
-      title: "Flagship film",
+      title: "Documentary film",
       text: "When the story is ready, a longer film from everything we've captured. Length follows the story.",
     },
   ],
@@ -119,7 +120,21 @@ export type ServiceContent = {
   forWhom: { title: string; items: { label: string; text: string }[] };
   deliverables: { title: string; items: string[] };
   steps: { title: string; items: { title: string; text: string }[] };
-  where: { title: string; text: string };
+  where: {
+    title: string;
+    text: string;
+    globe: {
+      /** Read out by screen readers instead of the drawing. */
+      label: string;
+      base: string;
+      filmed: string;
+      available: string;
+      hint: string;
+      filmedIn: string;
+      zoomIn: string;
+      zoomOut: string;
+    };
+  };
   work: {
     title: string;
     items: { slug: string; title: string; text: string }[];
@@ -181,6 +196,18 @@ export const servicePage: ServiceContent = {
   where: {
     title: "Where I work",
     text: "I'm based in Berlin and work from there. I'm also available across the DACH region, the rest of Europe and New York. Films are produced in German or English.",
+    globe: {
+      label:
+        "Globe showing where Chris Mongang works: based in Berlin, available across the DACH region, the rest of Europe and New York.",
+      base: "Based in Berlin",
+      filmed: "Filmed here",
+      available: "Available for projects",
+      hint: "Drag to turn the globe",
+      filmedIn:
+        "Filmed so far in Berlin, Bonn, Ferropolis, New York and Pittsburgh.",
+      zoomIn: "Zoom in",
+      zoomOut: "Zoom out",
+    },
   },
   work: {
     title: "Founder documentaries I've made",
@@ -305,7 +332,7 @@ export const servicePageDe: ServiceContent = {
         text: "Ein paar Drehtage pro Monat. Eure Geschichte wird festgehalten, während sie passiert – als Episoden, Clips und ein Archiv, das wächst.",
       },
       {
-        title: "Flagship-Film",
+        title: "Dokumentarfilm",
         text: "Wenn die Geschichte so weit ist: ein längerer Film aus allem, was wir gedreht haben. Die Länge richtet sich nach der Geschichte.",
       },
     ],
@@ -313,6 +340,18 @@ export const servicePageDe: ServiceContent = {
   where: {
     title: "Wo ich arbeite",
     text: "Ich sitze in Berlin und arbeite von dort aus. Außerdem bin ich im DACH-Raum, im übrigen Europa und in New York verfügbar. Die Filme entstehen auf Deutsch oder Englisch.",
+    globe: {
+      label:
+        "Globus, der zeigt, wo Chris Mongang arbeitet: Sitz in Berlin, verfügbar im DACH-Raum, im übrigen Europa und in New York.",
+      base: "Sitz in Berlin",
+      filmed: "Hier gedreht",
+      available: "Für Projekte verfügbar",
+      hint: "Zum Drehen ziehen",
+      filmedIn:
+        "Bisher gedreht in Berlin, Bonn, Ferropolis, New York und Pittsburgh.",
+      zoomIn: "Vergrößern",
+      zoomOut: "Verkleinern",
+    },
   },
   work: {
     title: "Gründer-Dokus, die ich gedreht habe",
