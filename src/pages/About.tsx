@@ -10,7 +10,8 @@ import {
   v2vYoutubeUrl,
 } from "../copy";
 
-const { now, building, v2v, sneakers, boxing } = aboutPage.chapters;
+const { now, unicornBakery, building, v2v, sneakers, boxing } =
+  aboutPage.chapters;
 
 type Photo = { src: string; alt: string; width: number; height: number };
 
@@ -27,6 +28,26 @@ const photos = {
     width: 900,
     height: 1600,
   },
+  unicornBakery: [
+    {
+      src: "/about/chris-mongang-unicorn-bakery-podcast-studio.jpg",
+      alt: "Podcast recording for Unicorn Bakery, photographed by Chris Mongang from behind the camera",
+      width: 1280,
+      height: 1600,
+    },
+    {
+      src: "/about/chris-mongang-unicorn-bakery-podcast-set.jpg",
+      alt: "Camera and light set up by Chris Mongang for a Unicorn Bakery podcast episode",
+      width: 1125,
+      height: 1406,
+    },
+    {
+      src: "/about/chris-mongang-unicorn-bakery-editing.jpg",
+      alt: "Chris Mongang's desk while editing a Unicorn Bakery episode, with the cameras next to the laptop",
+      width: 1125,
+      height: 1406,
+    },
+  ],
   building: [
     {
       src: "/about/chris-mongang-afrolink-cup-arena-screen.jpg",
@@ -204,6 +225,17 @@ export function About() {
             <Image photo={photos.filming} />
           </div>
           <Chapter {...now} />
+        </div>
+      </Section>
+
+      <Section wide>
+        <div className="max-w-2xl">
+          <Chapter {...unicornBakery} />
+        </div>
+        <div className="mt-12 grid grid-cols-1 gap-5 sm:grid-cols-3">
+          {photos.unicornBakery.map((photo) => (
+            <Image key={photo.src} photo={photo} />
+          ))}
         </div>
       </Section>
 

@@ -456,9 +456,16 @@ export const aboutPage = {
       label: "Now",
       title: "Founder documentaries",
       text: [
-        "Based in Berlin, I spent more than a year producing documentary content for Unicorn Bakery, Fabian Tausch's founder podcast. There I developed \"Day with\" – a format that spends a day behind the scenes with founders from Plancraft, Pliant, Bonn Open, Cortea and the Macher Festival.",
         "In April 2026, a vacation in New York turned into my first multi-day documentary: Starlife, a humanoid robotics startup, filmed with its founders and investors in New York and Pittsburgh.",
-        "Today I work independently with founders and their teams. Next step: telling their stories over months, not just days.",
+        "Today I work independently with founders and their teams, based in Berlin. Next step: telling their stories over months, not just days.",
+      ],
+    },
+    unicornBakery: {
+      label: "2026",
+      title: "Unicorn Bakery",
+      text: [
+        "For more than a year, I produced documentary-style content for Unicorn Bakery, Fabian Tausch's founder podcast: podcast episodes, founder vlogs and everything around them, from setting up the shoot to the final edit.",
+        "There I developed \"Day with\" – a format that spends a day behind the scenes with founders from Plancraft, Pliant, Bonn Open, Cortea and the Macher Festival.",
       ],
     },
     building: {
