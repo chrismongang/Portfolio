@@ -11,8 +11,12 @@
 //   REVIEWS_REPO    the private repository, e.g. "chrismongang/cm-reviews"
 //   REVIEWS_TOKEN   a GitHub token that may only read that repository
 //   REVIEWS_OVERVIEW  secret address of the overview of all review pages
+//   REVIEWS_PASSWORD  password for that overview; without it the overview
+//                     stays closed
 //   REVIEWS_DIR     local folder with the JSON files (used instead of GitHub
 //                   when set, for `npm run dev`)
+
+import { createHmac, timingSafeEqual } from "node:crypto";
 
 const validSlug = /^[a-z0-9][a-z0-9-]{7,99}$/;
 const site = "https://www.chrismongang.com";
@@ -71,7 +75,7 @@ async function listSlugs(): Promise<string[]> {
 }
 
 // The overview of all review pages, for Chris only. It opens under a secret
-// address stored in REVIEWS_OVERVIEW, never under a guessable one.
+// address stored in REVIEWS_OVERVIEW and asks for a password on top.
 async function overview() {
   const slugs = await listSlugs();
   const items = await Promise.all(
@@ -96,6 +100,74 @@ async function overview() {
     }),
   );
   return items.filter((item) => item !== null);
+}
+
+// --- Password for the overview ---------------------------------------------
+// After the right password the browser gets a signed cookie and stays signed
+// in for 30 days. Changing the password signs every browser out.
+const sessionCookie = "review_overview";
+const sessionDays = 30;
+
+function mac(key: string, value: string) {
+  return createHmac("sha256", key).update(value).digest();
+}
+
+function samePassword(given: string, password: string) {
+  return timingSafeEqual(mac("compare", given), mac("compare", password));
+}
+
+function sessionValue(password: string, slug: string, expires: number) {
+  const signature = mac(`${password}:${slug}`, String(expires)).toString("hex");
+  return `${expires}.${signature}`;
+}
+
+function hasSession(request: Request, password: string, slug: string) {
+  const cookies = request.headers.get("cookie") ?? "";
+  const value = cookies
+    .split(";")
+    .map((part) => part.trim())
+    .find((part) => part.startsWith(`${sessionCookie}=`))
+    ?.slice(sessionCookie.length + 1);
+  const expires = Number(value?.split(".")[0]);
+  if (!value || !Number.isFinite(expires) || expires < Date.now()) return false;
+  const expected = sessionValue(password, slug, expires);
+  return (
+    value.length === expected.length &&
+    timingSafeEqual(Buffer.from(value), Buffer.from(expected))
+  );
+}
+
+async function overviewResponse(request: Request, slug: string) {
+  const locked = (wrong: boolean) =>
+    Response.json({ ok: false, locked: true, wrong }, { status: 401, headers });
+  const password = process.env.REVIEWS_PASSWORD ?? "";
+  if (!password) return locked(false);
+
+  if (request.method === "POST") {
+    const body = (await request.json().catch(() => null)) as {
+      password?: unknown;
+    } | null;
+    const given = typeof body?.password === "string" ? body.password : "";
+    if (!samePassword(given, password)) {
+      // Slows down anyone trying passwords one after another.
+      await new Promise((resolve) => setTimeout(resolve, 1000));
+      return locked(true);
+    }
+    const maxAge = sessionDays * 24 * 60 * 60;
+    const value = sessionValue(password, slug, Date.now() + maxAge * 1000);
+    return Response.json(
+      { ok: true, overview: await overview() },
+      {
+        headers: {
+          ...headers,
+          "set-cookie": `${sessionCookie}=${value}; Path=/api/review; Max-Age=${maxAge}; HttpOnly; Secure; SameSite=Strict`,
+        },
+      },
+    );
+  }
+
+  if (!hasSession(request, password, slug)) return locked(false);
+  return Response.json({ ok: true, overview: await overview() }, { headers });
 }
 
 const headers = {
@@ -180,10 +252,7 @@ export default {
 
     const overviewSlug = process.env.REVIEWS_OVERVIEW ?? "";
     if (validSlug.test(overviewSlug) && slug === overviewSlug) {
-      return Response.json(
-        { ok: true, overview: await overview() },
-        { headers },
-      );
+      return overviewResponse(request, slug);
     }
 
     const text = validSlug.test(slug) ? await loadReview(slug) : null;
