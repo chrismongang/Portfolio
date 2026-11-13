@@ -81,6 +81,15 @@ export const privacy: LegalPage = {
       ],
     },
     {
+      heading: "Private review pages for clients",
+      lines: [
+        "Clients receive a private link to a review page for their film. These pages are not listed on the website and are excluded from search engines.",
+        "The film on such a page is shown in a player from Frame.io, a service of Adobe (Adobe Systems Software Ireland Limited, Ireland, and Adobe Inc., USA). When the page loads, your browser connects to Frame.io, which processes your IP address and technical data about your device and playback, and may store cookies or similar entries in your browser that the player needs to work.",
+        "If you leave a comment or download the film, Frame.io also processes what you enter, such as your name, your email address and the text of your comment. I see these comments in my Frame.io account and use them only to work on the film. The basis is our contract or its preparation (Art. 6 (1) (b) GDPR) and my legitimate interest in a simple review process (Art. 6 (1) (f) GDPR).",
+        "Data may be processed in the USA. Transfers are covered by the EU standard contractual clauses and, where applicable, the EU-U.S. Data Privacy Framework. Comments stay in Frame.io until the project is finished and I remove it there.",
+      ],
+    },
+    {
       heading: "The form “Tell me about your startup”",
       lines: [
         "When you send the form, I receive what you enter: company, website, stage, what the film should do for you, your timing, your name, email address, and optionally your WhatsApp number and a message.",

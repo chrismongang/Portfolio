@@ -193,6 +193,16 @@ function serviceJsonLd(
   };
 }
 
+// Shell for the private client review pages (/review/<address>). The content
+// of each review is loaded from a private store, never from this repository.
+export const reviewPath = "/review";
+const reviewPage: PageMeta = {
+  path: reviewPath,
+  title: `Client review · ${siteName}`,
+  description: "Private review page for clients.",
+  noindex: true,
+};
+
 const notFoundPage: PageMeta = {
   path: "/404",
   title: `${notFound.title} · ${siteName}`,
@@ -295,11 +305,13 @@ export const pages: PageMeta[] = [
     description: `How the website of ${siteName} handles personal data.`,
     noindex: true,
   },
+  reviewPage,
   notFoundPage,
 ];
 
 export function pageForPath(path: string) {
   const clean = path.length > 1 ? path.replace(/\/$/, "") : path;
+  if (clean.startsWith(`${reviewPath}/`)) return reviewPage;
   return pages.find((page) => page.path === clean) ?? notFoundPage;
 }
 
@@ -326,6 +338,8 @@ ${urls}
 export function robotsTxt() {
   return `User-agent: *
 Allow: /
+Disallow: /review/
+Disallow: /api/
 
 Sitemap: ${siteUrl}/sitemap.xml
 `;
