@@ -36,6 +36,7 @@ type State =
   | { step: "loading" }
   | { step: "missing" }
   | { step: "ready"; review: Review }
+  | { step: "locked" }
   | { step: "overview"; items: OverviewItem[] };
 
 const text = {
@@ -66,6 +67,9 @@ const text = {
   openPage: "Open",
   copy: "Copy link",
   copied: "Copied",
+  password: "Password",
+  unlock: "Open",
+  wrongPassword: "That password is not right.",
 };
 
 function posterUrl(slug: string) {
@@ -201,6 +205,70 @@ function formatDate(date: string) {
   });
 }
 
+// The overview asks for a password before it shows anything.
+function Locked({
+  slug,
+  onOpen,
+}: {
+  slug: string;
+  onOpen: (items: OverviewItem[]) => void;
+}) {
+  const [password, setPassword] = useState("");
+  const [wrong, setWrong] = useState(false);
+  const [busy, setBusy] = useState(false);
+
+  async function submit(event: React.FormEvent) {
+    event.preventDefault();
+    setBusy(true);
+    setWrong(false);
+    const data = (await fetch(`/api/review?slug=${encodeURIComponent(slug)}`, {
+      method: "POST",
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify({ password }),
+    })
+      .then((response) => response.json())
+      .catch(() => null)) as { overview?: OverviewItem[] } | null;
+    setBusy(false);
+    if (Array.isArray(data?.overview)) onOpen(data.overview);
+    else setWrong(true);
+  }
+
+  return (
+    <div className="flex flex-1 flex-col items-center justify-center px-6 py-24 text-center">
+      <PrivatePill badge={text.overviewBadge} hint={text.overviewHint} />
+      <h1 className="text-[32px] font-medium tracking-[-0.03em] md:text-[40px]">
+        {text.overviewTitle}
+      </h1>
+      <form onSubmit={submit} className="mt-8 flex w-full max-w-xs flex-col">
+        <label htmlFor="overview-password" className="sr-only">
+          {text.password}
+        </label>
+        <input
+          id="overview-password"
+          type="password"
+          autoComplete="current-password"
+          autoFocus
+          required
+          placeholder={text.password}
+          value={password}
+          onChange={(event) => setPassword(event.target.value)}
+          className="rounded-xl border border-placeholder bg-white px-4 py-2.5 text-[16px] text-ink outline-none focus:border-ink"
+        />
+        <button
+          type="submit"
+          disabled={busy}
+          className="mt-3 rounded-xl bg-gradient-to-r from-[#c9f4e6] to-[#b7e4f6] px-5 py-2.5 text-[15px] font-medium text-ink hover:from-[#bdecd9] hover:to-[#a6dcf0] disabled:opacity-60"
+        >
+          {text.unlock}
+        </button>
+        <p role="alert" className="mt-3 min-h-5 text-[14px] text-[#b3261e]">
+          {wrong ? text.wrongPassword : ""}
+        </p>
+      </form>
+    </div>
+  );
+}
+
 export function Review() {
   const { slug } = useParams();
   const [state, setState] = useState<State>({ step: "loading" });
@@ -211,21 +279,34 @@ export function Review() {
   useEffect(() => {
     let active = true;
     fetch(`/api/review?slug=${encodeURIComponent(slug ?? "")}`)
-      .then((response) => (response.ok ? response.json() : null))
-      .then((data: { review?: Review; overview?: OverviewItem[] } | null) => {
-        if (!active) return;
-        if (Array.isArray(data?.overview)) {
-          setState({ step: "overview", items: data.overview });
-          document.title = text.overviewTitle;
-          return;
-        }
-        if (!data?.review?.frameUrl) {
-          setState({ step: "missing" });
-          return;
-        }
-        setState({ step: "ready", review: data.review });
-        document.title = `Review · ${data.review.title}`;
-      })
+      .then((response) => response.json())
+      .then(
+        (
+          data: {
+            review?: Review;
+            overview?: OverviewItem[];
+            locked?: boolean;
+          } | null,
+        ) => {
+          if (!active) return;
+          if (data?.locked) {
+            setState({ step: "locked" });
+            document.title = text.overviewTitle;
+            return;
+          }
+          if (Array.isArray(data?.overview)) {
+            setState({ step: "overview", items: data.overview });
+            document.title = text.overviewTitle;
+            return;
+          }
+          if (!data?.review?.frameUrl) {
+            setState({ step: "missing" });
+            return;
+          }
+          setState({ step: "ready", review: data.review });
+          document.title = `Review · ${data.review.title}`;
+        },
+      )
       .catch(() => {
         if (active) setState({ step: "missing" });
       });
@@ -242,6 +323,15 @@ export function Review() {
   }, [state.step]);
 
   if (state.step === "overview") return <Overview items={state.items} />;
+
+  if (state.step === "locked") {
+    return (
+      <Locked
+        slug={slug ?? ""}
+        onOpen={(items) => setState({ step: "overview", items })}
+      />
+    );
+  }
 
   if (state.step === "loading") {
     return (

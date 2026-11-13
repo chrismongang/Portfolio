@@ -93,6 +93,10 @@ function devApi(): Plugin {
           const response: Response = await handler.fetch(
             new Request(`http://localhost/api/${name}${req.url ?? ""}`, {
               method: req.method,
+              headers: {
+                cookie: req.headers.cookie ?? "",
+                "content-type": req.headers["content-type"] ?? "",
+              },
               body: req.method === "POST" ? Buffer.concat(chunks) : undefined,
             }),
           );
@@ -101,6 +105,8 @@ function devApi(): Plugin {
             "content-type",
             response.headers.get("content-type") ?? "application/json",
           );
+          const cookie = response.headers.get("set-cookie");
+          if (cookie) res.setHeader("set-cookie", cookie);
           res.end(Buffer.from(await response.arrayBuffer()));
         });
       }
