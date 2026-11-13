@@ -14,6 +14,7 @@ import { imprint, imprintPath, privacy, privacyPath } from "./legal";
 import { Home } from "./pages/Home";
 import { Legal } from "./pages/Legal";
 import { NotFound } from "./pages/NotFound";
+import { Review } from "./pages/Review";
 import { Service } from "./pages/Service";
 import { Start } from "./pages/Start";
 import { Work } from "./pages/Work";
@@ -39,6 +40,8 @@ export function AppRoutes() {
         />
         <Route path={imprintPath} element={<Legal content={imprint} />} />
         <Route path={privacyPath} element={<Legal content={privacy} />} />
+        <Route path="/review" element={<Review />} />
+        <Route path="/review/:slug" element={<Review />} />
         <Route path="*" element={<NotFound />} />
       </Route>
     </Routes>

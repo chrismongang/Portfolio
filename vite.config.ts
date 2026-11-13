@@ -71,8 +71,9 @@ function pageHeads(): Plugin {
   }
 }
 
-// Vercel runs api/lead.ts in production. This runs the same file during
-// `npm run dev`, so the form on /start can be tested on your own machine.
+// Vercel runs the files in api/ in production. This runs the same files
+// during `npm run dev`, so the form on /start and the client review pages can
+// be tested on your own machine.
 function devApi(): Plugin {
   return {
     name: 'dev-api',
@@ -80,22 +81,26 @@ function devApi(): Plugin {
     configureServer(server) {
       Object.assign(
         process.env,
-        loadEnv('development', process.cwd(), ['RESEND_', 'LEAD_']),
+        loadEnv('development', process.cwd(), ['RESEND_', 'LEAD_', 'REVIEWS_']),
       )
-      server.middlewares.use('/api/lead', async (req, res) => {
-        const chunks: Buffer[] = []
-        for await (const chunk of req) chunks.push(chunk)
-        const { default: handler } = await server.ssrLoadModule('/api/lead.ts')
-        const response: Response = await handler.fetch(
-          new Request('http://localhost/api/lead', {
-            method: req.method,
-            body: req.method === 'POST' ? Buffer.concat(chunks) : undefined,
-          }),
-        )
-        res.statusCode = response.status
-        res.setHeader('content-type', 'application/json')
-        res.end(await response.text())
-      })
+      for (const name of ['lead', 'review']) {
+        server.middlewares.use(`/api/${name}`, async (req, res) => {
+          const chunks: Buffer[] = []
+          for await (const chunk of req) chunks.push(chunk)
+          const { default: handler } = await server.ssrLoadModule(
+            `/api/${name}.ts`,
+          )
+          const response: Response = await handler.fetch(
+            new Request(`http://localhost/api/${name}${req.url ?? ''}`, {
+              method: req.method,
+              body: req.method === 'POST' ? Buffer.concat(chunks) : undefined,
+            }),
+          )
+          res.statusCode = response.status
+          res.setHeader('content-type', 'application/json')
+          res.end(await response.text())
+        })
+      }
     },
   }
 }
