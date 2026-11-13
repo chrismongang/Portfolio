@@ -69,7 +69,7 @@ export function Review() {
           return;
         }
         setState({ step: "ready", review: data.review });
-        document.title = `${data.review.title} · ${data.review.client}`;
+        document.title = `Review · ${data.review.title}`;
       })
       .catch(() => {
         if (active) setState({ step: "missing" });
