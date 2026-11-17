@@ -40,6 +40,32 @@ export function Service({ content }: { content: ServiceContent }) {
         </div>
       </Section>
 
+      <Section title={content.work.title}>
+        <ul className="grid grid-cols-1 gap-x-5 gap-y-10 sm:grid-cols-2">
+          {work.map((item) => (
+            <li key={item.slug}>
+              <Link to={`/work/${item.slug}`} className="group block">
+                <LoopVideo
+                  playbackId={item.project.playbackId}
+                  title={item.title}
+                />
+                <h3 className="mt-3 text-[16px] font-medium tracking-[-0.01em] group-hover:underline">
+                  {item.title}
+                </h3>
+                <p className="mt-1 text-[14px] leading-snug text-muted">
+                  {item.text}
+                </p>
+              </Link>
+            </li>
+          ))}
+        </ul>
+        <div className="mt-14 text-center">
+          <Link to="/work" className="text-[15px] font-medium hover:underline">
+            {content.work.all} →
+          </Link>
+        </div>
+      </Section>
+
       <Section title={content.forWhom.title}>
         <dl className="mx-auto max-w-xl space-y-5">
           {content.forWhom.items.map((item) => (
@@ -90,32 +116,6 @@ export function Service({ content }: { content: ServiceContent }) {
             </li>
           ))}
         </ol>
-      </Section>
-
-      <Section title={content.work.title} wide>
-        <ul className="grid grid-cols-1 gap-x-5 gap-y-10 sm:grid-cols-2 md:grid-cols-3">
-          {work.map((item) => (
-            <li key={item.slug}>
-              <Link to={`/work/${item.slug}`} className="group block">
-                <LoopVideo
-                  playbackId={item.project.playbackId}
-                  title={item.title}
-                />
-                <h3 className="mt-3 text-[16px] font-medium tracking-[-0.01em] group-hover:underline">
-                  {item.title}
-                </h3>
-                <p className="mt-1 text-[14px] leading-snug text-muted">
-                  {item.text}
-                </p>
-              </Link>
-            </li>
-          ))}
-        </ul>
-        <div className="mt-14 text-center">
-          <Link to="/work" className="text-[15px] font-medium hover:underline">
-            {content.work.all} →
-          </Link>
-        </div>
       </Section>
 
       <Section title={content.where.title} wide>
