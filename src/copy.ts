@@ -222,26 +222,6 @@ export const servicePage: ServiceContent = {
         title: "Franz Purucker",
         text: "A stealth health startup on a research trip to New York",
       },
-      {
-        slug: "cortea",
-        title: "Cortea",
-        text: "A day inside a Berlin AI startup",
-      },
-      {
-        slug: "bonn-open",
-        title: "Bonn Open",
-        text: "André Christ sold LeanIX to SAP – then built a tennis tournament",
-      },
-      {
-        slug: "tech-europe",
-        title: "Tech Europe",
-        text: "The 24 hours before an AI conference opens in Berlin",
-      },
-      {
-        slug: "tech-europe-hackathon",
-        title: "Tech Europe Hackathon",
-        text: "Two founders, one hackathon: from the first idea to the pitch",
-      },
     ],
     all: "See all work",
   },
@@ -363,26 +343,6 @@ export const servicePageDe: ServiceContent = {
         slug: "franz-purucker",
         title: "Franz Purucker",
         text: "Ein Health-Startup im Stealth-Modus auf Recherchereise in New York",
-      },
-      {
-        slug: "cortea",
-        title: "Cortea",
-        text: "Ein Tag in einem Berliner KI-Startup",
-      },
-      {
-        slug: "bonn-open",
-        title: "Bonn Open",
-        text: "André Christ verkaufte LeanIX an SAP – und baute dann ein Tennisturnier",
-      },
-      {
-        slug: "tech-europe",
-        title: "Tech Europe",
-        text: "Die 24 Stunden vor dem Start einer KI-Konferenz in Berlin",
-      },
-      {
-        slug: "tech-europe-hackathon",
-        title: "Tech Europe Hackathon",
-        text: "Zwei Gründer, ein Hackathon: von der ersten Idee bis zum Pitch",
       },
     ],
     all: "Alle Arbeiten ansehen",
@@ -530,7 +490,7 @@ export const aboutPage = {
       title: "Unicorn Bakery",
       text: [
         "For more than a year, I produced documentary-style content for Unicorn Bakery, Fabian Tausch's founder podcast: podcast episodes, founder vlogs and everything around them, from setting up the shoot to the final edit.",
-        "There I developed \"Day with\" – a format that spends a day behind the scenes with founders from Plancraft, Pliant, Bonn Open, Cortea and the Macher Festival.",
+        'There I developed "Day with" – a format that spends a day behind the scenes with founders from Plancraft, Pliant, Bonn Open, Cortea and the Macher Festival.',
       ],
     },
     building: {
@@ -578,7 +538,8 @@ export const aboutPage = {
       ],
     },
   },
-  closing: "Building something with a story worth sharing? I'd love to hear it.",
+  closing:
+    "Building something with a story worth sharing? I'd love to hear it.",
 } as const;
 
 export const linkedinUrl = "https://www.linkedin.com/in/chris-mongang";

@@ -1,19 +1,24 @@
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
+import { MuxEmbed } from "../components/MuxEmbed";
 
 // A private page for one client video: /review/<address>.
 // The client watches the cut in the Frame.io player and comments right there.
+// A finished film can instead be shown in the Mux player, without review notes.
 // What the page shows comes from api/review.ts, not from this repository.
 
 type Review = {
   client: string;
   title: string;
   /** "review" asks for feedback, "final" offers the finished film. */
-  status: "review" | "final";
+  status?: "review" | "final";
   /** Optional label such as "Version 2". */
   version?: string;
   updated?: string;
-  frameUrl: string;
+  /** Frame.io share link. Left out when the film is on Mux. */
+  frameUrl?: string;
+  /** A film uploaded to Mux. The page then shows no status, date or Frame.io link. */
+  muxPlaybackId?: string;
   /** True when a still from the film is stored next to the entry. */
   poster?: boolean;
   /** Only for videos where Chris asks for a summary or chapters. */
@@ -159,7 +164,7 @@ function Overview({ items }: { items: OverviewItem[] }) {
                   {item.title}
                 </p>
                 <p className="mt-2 flex flex-wrap items-center gap-x-3 gap-y-1 text-[13px] text-muted">
-                  <StatusBadge status={item.status} />
+                  {item.status ? <StatusBadge status={item.status} /> : null}
                   {item.version ? <span>{item.version}</span> : null}
                   {item.updated ? (
                     <span>{formatDate(item.updated)}</span>
@@ -299,7 +304,7 @@ export function Review() {
             document.title = text.overviewTitle;
             return;
           }
-          if (!data?.review?.frameUrl) {
+          if (!data?.review?.frameUrl && !data?.review?.muxPlaybackId) {
             setState({ step: "missing" });
             return;
           }
@@ -365,9 +370,10 @@ export function Review() {
   }
 
   const { review } = state;
+  const mux = review.muxPlaybackId;
   const meta = [
     review.version,
-    review.updated ? formatDate(review.updated) : undefined,
+    !mux && review.updated ? formatDate(review.updated) : undefined,
   ].filter(Boolean);
   const rows = [
     ...(review.summary
@@ -412,53 +418,71 @@ export function Review() {
         <h1 className="mt-3 text-balance text-[32px] font-medium tracking-[-0.03em] md:text-[40px]">
           {review.title}
         </h1>
-        <p className="mt-4 flex flex-wrap items-center justify-center gap-x-3 gap-y-2 text-[14px] text-muted">
-          <StatusBadge status={review.status} />
-          {meta.map((item) => (
-            <span key={item}>{item}</span>
-          ))}
-        </p>
+        {!mux || meta.length ? (
+          <p className="mt-4 flex flex-wrap items-center justify-center gap-x-3 gap-y-2 text-[14px] text-muted">
+            {mux ? null : <StatusBadge status={review.status} />}
+            {meta.map((item) => (
+              <span key={item}>{item}</span>
+            ))}
+          </p>
+        ) : null}
       </div>
 
-      <div className="relative mt-10 h-[78svh] min-h-[560px] w-full overflow-hidden rounded-xl bg-[#14151c]">
-        <iframe
-          src={review.frameUrl}
-          title={review.title}
-          allow="fullscreen; autoplay; clipboard-write"
-          allowFullScreen
-          onLoad={() => window.setTimeout(() => setPlayerReady(true), 4000)}
-          className="h-full w-full border-0"
-        />
-        <div
-          className={`absolute inset-0 flex items-center justify-center bg-[#14151c] transition-opacity duration-500 ${
-            playerReady ? "pointer-events-none opacity-0" : "opacity-100"
-          }`}
-          aria-hidden={playerReady}
-        >
-          {review.poster && slug ? (
-            <img
-              src={posterUrl(slug)}
-              alt=""
-              className="absolute inset-0 h-full w-full object-cover opacity-60"
-            />
-          ) : null}
-          <p className="relative flex items-center gap-3 rounded-full bg-black/55 px-5 py-2.5 text-[14px] font-medium text-white">
-            <span className="h-4 w-4 animate-spin rounded-full border-2 border-white/30 border-t-white" />
-            {text.loadingPlayer}
-          </p>
+      {mux ? (
+        <div className="mt-10 overflow-hidden rounded-xl">
+          <MuxEmbed
+            playbackId={mux}
+            title={review.title}
+            poster={
+              review.poster && slug
+                ? posterUrl(slug)
+                : `https://image.mux.com/${mux}/thumbnail.webp?time=1`
+            }
+          />
         </div>
-      </div>
-      <p className="mt-4 text-center text-[14px] text-muted">
-        {text.openHint}{" "}
-        <a
-          href={review.frameUrl}
-          target="_blank"
-          rel="noreferrer"
-          className="font-medium text-ink underline underline-offset-[3px]"
-        >
-          {text.open} ↗
-        </a>
-      </p>
+      ) : (
+        <>
+          <div className="relative mt-10 h-[78svh] min-h-[560px] w-full overflow-hidden rounded-xl bg-[#14151c]">
+            <iframe
+              src={review.frameUrl}
+              title={review.title}
+              allow="fullscreen; autoplay; clipboard-write"
+              allowFullScreen
+              onLoad={() => window.setTimeout(() => setPlayerReady(true), 4000)}
+              className="h-full w-full border-0"
+            />
+            <div
+              className={`absolute inset-0 flex items-center justify-center bg-[#14151c] transition-opacity duration-500 ${
+                playerReady ? "pointer-events-none opacity-0" : "opacity-100"
+              }`}
+              aria-hidden={playerReady}
+            >
+              {review.poster && slug ? (
+                <img
+                  src={posterUrl(slug)}
+                  alt=""
+                  className="absolute inset-0 h-full w-full object-cover opacity-60"
+                />
+              ) : null}
+              <p className="relative flex items-center gap-3 rounded-full bg-black/55 px-5 py-2.5 text-[14px] font-medium text-white">
+                <span className="h-4 w-4 animate-spin rounded-full border-2 border-white/30 border-t-white" />
+                {text.loadingPlayer}
+              </p>
+            </div>
+          </div>
+          <p className="mt-4 text-center text-[14px] text-muted">
+            {text.openHint}{" "}
+            <a
+              href={review.frameUrl}
+              target="_blank"
+              rel="noreferrer"
+              className="font-medium text-ink underline underline-offset-[3px]"
+            >
+              {text.open} ↗
+            </a>
+          </p>
+        </>
+      )}
 
       {rows.length ? (
         <dl className="mx-auto mt-14 max-w-3xl divide-y divide-rail border-y border-rail">
