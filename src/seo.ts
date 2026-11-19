@@ -273,7 +273,7 @@ export const pages: PageMeta[] = [
   {
     path: "/start",
     title: `${leadForm.title} · ${siteName}`,
-    description: `Five quick questions about your startup. ${siteName} gets back to you personally.`,
+    description: `A few quick questions about your startup. ${siteName} gets back to you personally.`,
     image: defaultImage,
   },
   {

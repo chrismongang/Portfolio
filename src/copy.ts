@@ -388,10 +388,10 @@ export const servicePageDe: ServiceContent = {
   otherLanguage: { text: "This page in English", path: servicePath },
 };
 
-/** The five questions on /start. The answers go to api/lead.ts. */
+/** The questions on /start. The answers go to api/lead.ts. */
 export const leadForm = {
   title: "Tell me about your startup",
-  intro: "Five quick questions. Takes about 60 seconds.",
+  intro: "A few quick questions. Takes about a minute.",
   company: {
     question: "What are you building?",
     companyLabel: "Company",
@@ -410,10 +410,13 @@ export const leadForm = {
       "Attract talent",
       "Support fundraising",
       "Win customer trust",
+      "Support a launch",
       "Build founder brand",
     ],
     /** Clears the other choices when picked. */
     unsure: "Not sure yet",
+    upcomingLabel: "What's coming up in the next few months?",
+    upcomingPlaceholder: "A round, a launch, new hires … (optional)",
   },
   timing: {
     question: "When would you want to start?",
@@ -423,6 +426,14 @@ export const leadForm = {
       "Later in 2027",
       "Just exploring",
     ],
+  },
+  partnership: {
+    question: "Which partnership sounds right?",
+    options: ["3 months", "6 months", "12 months", "Not sure yet"],
+  },
+  source: {
+    question: "How did you hear about me?",
+    options: ["Referral", "LinkedIn", "Event", "Other"],
   },
   reach: {
     question: "Where can I reach you?",
