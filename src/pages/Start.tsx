@@ -57,6 +57,7 @@ export function Start() {
   const [timing, setTiming] = useState("");
   const [partnership, setPartnership] = useState("");
   const [source, setSource] = useState("");
+  const [sourceDetail, setSourceDetail] = useState("");
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [whatsapp, setWhatsapp] = useState("");
@@ -107,7 +108,9 @@ export function Start() {
           upcoming,
           timing,
           partnership,
-          source,
+          source: sourceDetail.trim()
+            ? `${source}: ${sourceDetail.trim()}`
+            : source,
           name,
           email,
           whatsapp,
@@ -308,13 +311,24 @@ export function Start() {
                   key={option}
                   label={option}
                   selected={source === option}
-                  onClick={() => {
-                    setSource(option);
-                    setStep(6);
-                  }}
+                  onClick={() => setSource(option)}
                 />
               ))}
             </div>
+            {source ? (
+              <div className="mt-6">
+                <Field label={text.source.detailLabel[source]}>
+                  <input
+                    className={input}
+                    value={sourceDetail}
+                    onChange={(event) => setSourceDetail(event.target.value)}
+                    placeholder={text.source.detailPlaceholder}
+                    maxLength={120}
+                    autoFocus
+                  />
+                </Field>
+              </div>
+            ) : null}
           </fieldset>
         ) : null}
 
@@ -401,7 +415,7 @@ export function Start() {
             <span />
           )}
           {/* The single-choice steps move on by themselves the first time. */}
-          {step === 1 || step === 3 || step === 4 || step === 5 ? (
+          {step === 1 || step === 3 || step === 4 ? (
             canContinue ? (
               <button type="submit" className={primaryButton}>
                 {text.next} →
