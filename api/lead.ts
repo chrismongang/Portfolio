@@ -7,6 +7,9 @@
 //   4. The lead is added as a new row to the Google Sheet "Website Leads".
 //   5. The lead gets a short confirmation mail.
 //
+// New fields since Nov 2026: upcoming, partnership, source. They show up in the
+// mail and in Resend. The sheet only shows them once its script writes them.
+//
 // Where to follow it in Resend:
 //   - Audience → segment "Website Leads": one row per lead, with all answers.
 //     Change lead_status by hand as you go (new → contacted → call → won / lost).
@@ -31,7 +34,10 @@ type Lead = {
   website: string;
   stage: string;
   goals: string[];
+  upcoming: string;
   timing: string;
+  partnership: string;
+  source: string;
   name: string;
   email: string;
   whatsapp: string;
@@ -90,7 +96,10 @@ export default {
       website: lead.website,
       stage: lead.stage,
       goals: lead.goals.join(", "),
+      upcoming: lead.upcoming,
       timing: lead.timing,
+      partnership: lead.partnership,
+      source: lead.source,
       whatsapp: lead.whatsapp,
       message: lead.message,
       lead_status: "new",
@@ -165,7 +174,11 @@ function readLead(data: Record<string, unknown> | null): Lead | null {
     goals: Array.isArray(data.goals)
       ? data.goals.map(text).filter(Boolean).slice(0, 6)
       : [],
+    upcoming:
+      typeof data.upcoming === "string" ? data.upcoming.trim().slice(0, 500) : "",
     timing: text(data.timing),
+    partnership: text(data.partnership),
+    source: text(data.source),
     name: text(data.name),
     email: text(data.email).toLowerCase(),
     whatsapp: text(data.whatsapp),
@@ -188,7 +201,10 @@ function rows(lead: Lead): [string, string][] {
     ["Website", lead.website || "–"],
     ["Stage", lead.stage],
     ["Film should", lead.goals.join(", ")],
+    ["Coming up", lead.upcoming || "–"],
     ["Start", lead.timing],
+    ["Partnership", lead.partnership || "–"],
+    ["Heard via", lead.source || "–"],
     ["Name", lead.name],
     ["Email", lead.email],
     ["WhatsApp", lead.whatsapp || "–"],

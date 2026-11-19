@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { leadForm as text } from "../copy";
 import { privacyPath } from "../legal";
 
-const steps = 5;
+const steps = 7;
 
 const primaryButton =
   "rounded-xl bg-gradient-to-r from-[#c9f4e6] to-[#b7e4f6] px-5 py-2.5 text-[15px] font-medium text-ink hover:from-[#bdecd9] hover:to-[#a6dcf0] disabled:cursor-not-allowed disabled:opacity-40";
@@ -53,7 +53,10 @@ export function Start() {
   const [website, setWebsite] = useState("");
   const [stage, setStage] = useState("");
   const [goals, setGoals] = useState<string[]>([]);
+  const [upcoming, setUpcoming] = useState("");
   const [timing, setTiming] = useState("");
+  const [partnership, setPartnership] = useState("");
+  const [source, setSource] = useState("");
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [whatsapp, setWhatsapp] = useState("");
@@ -66,6 +69,8 @@ export function Start() {
     stage !== "",
     goals.length > 0,
     timing !== "",
+    partnership !== "",
+    source !== "",
     name.trim() !== "" && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim()),
   ][step];
 
@@ -99,7 +104,10 @@ export function Start() {
           website,
           stage,
           goals,
+          upcoming,
           timing,
+          partnership,
+          source,
           name,
           email,
           whatsapp,
@@ -232,6 +240,18 @@ export function Start() {
                 />
               ))}
             </div>
+            <div className="mt-6">
+              <Field label={text.goals.upcomingLabel}>
+                <textarea
+                  className={`${input} min-h-20 resize-y`}
+                  value={upcoming}
+                  onChange={(event) => setUpcoming(event.target.value)}
+                  placeholder={text.goals.upcomingPlaceholder}
+                  rows={2}
+                  maxLength={500}
+                />
+              </Field>
+            </div>
           </fieldset>
         ) : null}
 
@@ -257,6 +277,48 @@ export function Start() {
         ) : null}
 
         {step === 4 ? (
+          <fieldset>
+            <legend className="mb-6 text-[20px] font-medium tracking-[-0.02em] md:text-[22px]">
+              {text.partnership.question}
+            </legend>
+            <div className="flex flex-wrap gap-2">
+              {text.partnership.options.map((option) => (
+                <Choice
+                  key={option}
+                  label={option}
+                  selected={partnership === option}
+                  onClick={() => {
+                    setPartnership(option);
+                    setStep(5);
+                  }}
+                />
+              ))}
+            </div>
+          </fieldset>
+        ) : null}
+
+        {step === 5 ? (
+          <fieldset>
+            <legend className="mb-6 text-[20px] font-medium tracking-[-0.02em] md:text-[22px]">
+              {text.source.question}
+            </legend>
+            <div className="flex flex-wrap gap-2">
+              {text.source.options.map((option) => (
+                <Choice
+                  key={option}
+                  label={option}
+                  selected={source === option}
+                  onClick={() => {
+                    setSource(option);
+                    setStep(6);
+                  }}
+                />
+              ))}
+            </div>
+          </fieldset>
+        ) : null}
+
+        {step === 6 ? (
           <fieldset className="space-y-4">
             <legend className="mb-6 text-[20px] font-medium tracking-[-0.02em] md:text-[22px]">
               {text.reach.question}
@@ -338,8 +400,8 @@ export function Start() {
           ) : (
             <span />
           )}
-          {/* The two single-choice steps move on by themselves the first time. */}
-          {step === 1 || step === 3 ? (
+          {/* The single-choice steps move on by themselves the first time. */}
+          {step === 1 || step === 3 || step === 4 || step === 5 ? (
             canContinue ? (
               <button type="submit" className={primaryButton}>
                 {text.next} →
