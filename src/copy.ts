@@ -434,6 +434,14 @@ export const leadForm = {
   source: {
     question: "How did you hear about me?",
     options: ["Referral", "LinkedIn", "Event", "Other"],
+    /** Label of the optional text field, depending on the choice. */
+    detailLabel: {
+      Referral: "Who referred you?",
+      LinkedIn: "Which post or person?",
+      Event: "Which event?",
+      Other: "Where did you hear about me?",
+    } as Record<string, string>,
+    detailPlaceholder: "Optional",
   },
   reach: {
     question: "Where can I reach you?",
